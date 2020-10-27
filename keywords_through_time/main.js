@@ -16,7 +16,7 @@ function changeYear(newYear) {
   updateChart();
 }
 
-d3.json('../top10_keywords_by_year.json').then(function(dataset) {
+d3.json('../data/top10_keywords_by_year.json').then(function(dataset) {
   years = dataset;
   updateChart(year);
 });
