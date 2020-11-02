@@ -13,7 +13,7 @@ function dataPreprocessor(row) {
     }; 
 }
 
-d3.csv("TopMoviesWave1.csv", dataPreprocessor).then (function(moviedata) {
+d3.csv("../data/TopMoviesWave1.csv", dataPreprocessor).then (function(moviedata) {
     console.log(moviedata);
 
     // **** Your JavaScript code goes here ****
