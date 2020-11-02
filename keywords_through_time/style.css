@@ -16,3 +16,7 @@
 .slider::-webkit-slider-thumb {
   cursor: pointer;
 }
+
+.keyword_bar text {
+  fill: white
+}

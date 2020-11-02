@@ -1,9 +1,22 @@
 var svg = d3.select('svg');
 var svgWidth = +svg.attr('width');
 var svgHeight = +svg.attr('height');
-var padding = 20;
+var padding = {
+  t: 40,
+  r: 40,
+  b: 40,
+  l: 40
+};
 
-var chartG = svg.append('g');
+var chartWidth = svgWidth - padding.l - padding.r;
+var chartHeight = svgHeight - padding.t - padding.b;
+var barBand = chartWidth / 10;
+var barWidth = barBand * 0.8;
+
+
+var chartG = svg.append('g')
+  .attr('transform', 'translate(' + [padding.l, padding.t] + ')');
+var yAxisG = chartG.append('g');
 const yearSlider = document.getElementById("yearRange");
 const yearLabel = document.getElementById("yearLabel");
 var year = '1975';
@@ -25,19 +38,28 @@ function updateChart() {
   console.log(year);
   var xScale = d3.scaleBand()
     .domain(years[year].map(x => x['keyword']))
-    .range([padding, svgWidth - padding]);
+    .range([0, chartWidth]);
   var yScale = d3.scaleLinear()
     .domain([0, d3.max(years[year].map(x => x['count']))])
-    .range([padding, svgHeight - padding]);
-  var boxes = svg.selectAll('keyword_box')
+    .range([chartHeight, 0]);
+  yAxisG.transition().duration(100).call(d3.axisLeft(yScale));
+
+  chartG.selectAll('.keyword_bar').remove();
+  var bars = chartG.selectAll('.keyword_bar')
     .data(years[year])
-  boxes.enter()
-    .append('rect')
-    .attr('class', 'keyword_box')
-    .attr('y', d => svgHeight - yScale(d['count']))
-    .attr('x', d => xScale(d['keyword']))
-    .attr('width', svgWidth / 10 - 20)
-    .attr('height', d => yScale(d['count']))
-  boxes.exit()
-    .remove();
+  var barsEnter = bars.enter()
+    .append('g')
+    .attr('class', 'keyword_bar')
+    .attr('transform', d => 'translate(' + [xScale(d['keyword']), yScale(d['count'])] + ')')
+
+  barsEnter.append('rect')
+    .attr('width', barWidth)
+    .attr('height', d => chartHeight - yScale(d['count']));
+  barsEnter.append('text')
+    .text(d => d['keyword'])
+    .attr('transform', function(d) {
+      var tx = barWidth / 2;
+      var ty = chartHeight - yScale(d['count']) - 10;
+      return 'translate(' + [tx, ty] + ') rotate(-90)'
+    })
 }
