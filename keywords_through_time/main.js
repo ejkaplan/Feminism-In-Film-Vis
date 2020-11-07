@@ -42,7 +42,7 @@ function updateChart() {
   var yScale = d3.scaleLinear()
     .domain([0, d3.max(years[year].map(x => x['count']))])
     .range([chartHeight, 0]);
-  yAxisG.transition().duration(100).call(d3.axisLeft(yScale));
+  yAxisG.transition().duration(300).call(d3.axisLeft(yScale));
 
   chartG.selectAll('.keyword_bar').remove();
   var bars = chartG.selectAll('.keyword_bar')
