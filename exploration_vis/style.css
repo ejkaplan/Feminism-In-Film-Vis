@@ -1,0 +1,26 @@
+div {
+  border: solid black 2px;
+}
+
+.movieDot {
+  opacity: 0.1;
+}
+
+#parityLine {
+  stroke: black;
+  stroke-width: 1;
+}
+
+.cell rect {
+  stroke: black;
+  stroke-width: 1;
+}
+
+.axis text {
+  fill: black;
+  font-size: 15px;
+}
+
+.tick text {
+  font-size: 10px;
+}
