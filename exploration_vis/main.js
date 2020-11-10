@@ -103,12 +103,12 @@ function drawMovies() {
     .attr('height', cellHeight)
     .style('fill', d => colorScale(d.count))
     .style('stroke-width', d => d.m == d.f ? 5 : 1)
-  cellsEnter.append("text")
-    .text(d => d.count)
-    .attr('text-anchor', 'middle')
-    .attr('alignment-baseline', 'middle')
-    .attr('dx', cellWidth / 2)
-    .attr('dy', cellHeight / 2);
+  // cellsEnter.append("text")
+  //   .text(d => d.count)
+  //   .attr('text-anchor', 'middle')
+  //   .attr('alignment-baseline', 'middle')
+  //   .attr('dx', cellWidth / 2)
+  //   .attr('dy', cellHeight / 2);
 }
 
 function updateMovies() {
@@ -118,13 +118,13 @@ function updateMovies() {
   // Heatmap
   var cells = chartG.selectAll('.cell')
     .data(grid)
-    .enter();
+  // .enter();
   cells.selectAll('rect')
     .transition()
     .duration(200)
     .style('fill', d => colorScale(d.count));
-  cells.selectAll("text")
-    .text(d => d.count)
+  // cells.selectAll("text")
+  //   .text(d => d.count)
 }
 
 function changeYearLow(year, update = true) {
