@@ -9,6 +9,12 @@
 
 <body>
   <svg width="700" height="700" style="border: 1px solid #777;" />
+  <div id="controls-container">
+    <label for="year-low" id="year-low-label">Year Low: 1874</label>
+    <input class="date-slider" id="year-low" type="range" id="year_low" min="1874" max="2017" step="1" value="1874" oninput="changeYearLow(this.value)">
+    <label for="year-high" id="year-high-label">Year High: 2017</label>
+    <input class="date-slider" id="year-high" type="range" id="year_low" min="1874" max="2017" step="1" value="2017" oninput="changeYearHigh(this.value)">
+  </div>
 </body>
 
 <script src="//d3js.org/d3.v5.min.js"></script>

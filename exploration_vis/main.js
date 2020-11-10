@@ -13,6 +13,11 @@ var chartHeight = svgHeight - padding.t - padding.b;
 const cellWidth = chartWidth / (maxActors + 1);
 const cellHeight = chartHeight / (maxActors + 1);
 
+var yearLow = 1874,
+  yearHigh = 2017;
+
+var colorScale = d3.scaleLinear()
+  .range(['white', 'blue', 'red']);
 var xScale = d3.scaleLinear()
   .domain([0, maxActors])
   .range([0, chartWidth]);
@@ -42,6 +47,7 @@ yAxisG.append('text')
   .attr('dx', -chartHeight / 2)
   .attr('text-anchor', 'middle')
   .attr('alignment-baseline', 'middle')
+
 d3.json('../data/movies.json').then(function(dataset) {
   movies = dataset;
   movies.forEach(function(movie) {
@@ -56,7 +62,11 @@ function getGridVals() {
   for (let i = 0; i < maxActors + 1; i++) {
     grid[i] = new Array(maxActors + 1).fill(0);
   }
-  movies.forEach(function(movie) {
+  let filtered_movies = movies.filter(function(movie) {
+    let year = movie.release_date.getFullYear();
+    return yearLow <= year && year <= yearHigh;
+  });
+  filtered_movies.forEach(function(movie) {
     let m = movie['male_cast'];
     let f = movie['female_cast'];
     if (m + f > 0 && m <= maxActors && f <= maxActors) {
@@ -80,9 +90,7 @@ function getGridVals() {
 function drawMovies() {
   var grid = getGridVals();
   var maxCount = d3.max(grid.map(x => x.count));
-  var colorScale = d3.scaleLinear()
-    .domain([0, maxCount / 2, maxCount])
-    .range(['white', 'blue', 'red'])
+  colorScale.domain([0, maxCount / 2, maxCount]);
   // Heatmap
   var cells = chartG.selectAll('.cell')
     .data(grid)
@@ -94,11 +102,53 @@ function drawMovies() {
     .attr('width', cellWidth)
     .attr('height', cellHeight)
     .style('fill', d => colorScale(d.count))
-    .style('stroke-width', d => d.m == d.f ? 5 : 1);
+    .style('stroke-width', d => d.m == d.f ? 5 : 1)
   cellsEnter.append("text")
     .text(d => d.count)
     .attr('text-anchor', 'middle')
     .attr('alignment-baseline', 'middle')
     .attr('dx', cellWidth / 2)
     .attr('dy', cellHeight / 2);
+}
+
+function updateMovies() {
+  var grid = getGridVals();
+  var maxCount = d3.max(grid.map(x => x.count));
+  colorScale.domain([0, maxCount / 2, maxCount]);
+  // Heatmap
+  var cells = chartG.selectAll('.cell')
+    .data(grid)
+    .enter();
+  cells.selectAll('rect')
+    .transition()
+    .duration(200)
+    .style('fill', d => colorScale(d.count));
+  cells.selectAll("text")
+    .text(d => d.count)
+}
+
+function changeYearLow(year, update = true) {
+  let label = document.getElementById('year-low-label');
+  let slider = document.getElementById('year-low');
+  slider.value = year;
+  if (year > yearHigh) {
+    changeYearHigh(year, false);
+  }
+  label.innerHTML = "Year Low: " + year;
+  yearLow = year;
+  if (update)
+    updateMovies();
+}
+
+function changeYearHigh(year, update = true) {
+  let label = document.getElementById('year-high-label');
+  let slider = document.getElementById('year-high');
+  slider.value = year;
+  if (year < yearLow) {
+    changeYearLow(year, false);
+  }
+  label.innerHTML = "Year High: " + year;
+  yearHigh = year;
+  if (update)
+    updateMovies();
 }

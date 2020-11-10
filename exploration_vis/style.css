@@ -24,3 +24,12 @@ div {
 .tick text {
   font-size: 10px;
 }
+
+#controls-container {
+  background-color: #f2f2f9;
+  width: 700px;
+}
+
+#controls-container .date-slider {
+  width: 98%;
+}
