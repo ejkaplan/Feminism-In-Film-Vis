@@ -10,9 +10,30 @@
 // ];
 
 //Assign these variables based on scrollytelling
-var era = "first";
+var era = "1";
 var start = 1920;
 var end = 1959;
+
+
+// var era = "2";
+// var start = 1960;
+// var end = 1980;
+
+// var era = "3";
+// var start = 1981;
+// var end = 2010;
+
+// var era = "4";
+// var start = 2011;
+// var end = 2017;
+
+//-------------------
+
+//Dimension-related vars
+var topPadding = 50;
+var femaleGraphX = 420;
+var yearGap = 40;
+
 var yearsDomain = [];
 
 for (var y = start; y <= end; y++) {
@@ -20,27 +41,27 @@ for (var y = start; y <= end; y++) {
 }
 
 
-
 svg = d3.selectAll('svg');
 var maleGraph = svg.append('g')
     .attr('id', '.maleGraph')
-    .attr('x', 20)
-    .attr('y', 50);
+    .attr('x', 0)
+    .attr('y', topPadding);
 var femaleGraph = svg.append('g')
     .attr('id', '.femaleGraph')
-    .attr('x', 420)
-    .attr('y', 50);
+    .attr('x', femaleGraphX)
+    .attr('y', topPadding);
 var yearsLabels = svg.append('g')
     .attr('id', 'labels')
     .attr('x', 385)
-    .attr('y', 50);
+    .attr('y', topPadding)
+    .style('fill', '#E5F77D')
+    .attr('font-family', 'futura');
 
 
 d3.csv('movies.csv').then(function(dataset) {
 
-    //Add conditional logic for this to change based on wave
     var waveMovies = dataset.filter(function (d) {
-        return d['wave'] == "1";
+        return d['wave'] == era;
     })
 
     var maleDict = {}; //{year:sum}
@@ -74,18 +95,23 @@ d3.csv('movies.csv').then(function(dataset) {
 
     var yScale = d3.scaleBand()
         .domain(yearsDomain)
-        .rangeRound([0,600])
+        .rangeRound([topPadding,600])
         .padding(0.35);
     var wScale = d3.scaleLinear()
         .domain([0,100])
         .range([20,380]);
-
     var malewScale = d3.scaleLinear()
         .domain([100,0])
         .range([20,380]);
 
+    var tickLabels = ['', '50%', '100%'];
     var maleAxis = d3.axisTop(malewScale).ticks(2);
+    maleAxis.tickFormat((d,i) => tickLabels[2-i]);
     var femaleAxis = d3.axisTop(wScale).ticks(2);
+    femaleAxis.tickFormat((d,i) => tickLabels[i]);
+
+
+
     
     maleGraph.selectAll('rect')
         .data(yearsDict)
@@ -100,24 +126,32 @@ d3.csv('movies.csv').then(function(dataset) {
         .attr('width', function(d){
             return wScale(d.maleCount);
         })
-        .style('fill', '#2E86C1');
+        .style('fill', '#1861F8');
 
     maleGraph.append('g')
-            .attr('class', 'x axis')
-            .attr('transform', 'translate(0,20)')
-            .call(maleAxis);
+        .attr('class', 'x axis')
+        .attr('transform', 'translate(0,' + (topPadding)+ ')')
+        .call(maleAxis)
+        .style('stroke', '#E5F77D')
+        .attr('font-family', 'futura');
 
-    maleGraph.select(".x.axis")
-        .select(".domain")
-        .style('stroke', "#fff");
+    var lineGenerator = d3.line();
+    var points = [
+        [malewScale(50), topPadding], 
+        [malewScale(50), 600]
+        ];
 
+    maleGraph.append('path')
+        .attr('d', lineGenerator(points))
+        .style('stroke', '#E5F77D')
+        .style('stroke-dasharray', '5,5');
 
     femaleGraph.selectAll('rect')
         .data(yearsDict)
         .enter()
         .append('rect')
         .attr('id', function(d) {return d.year;})
-        .attr('x', 420)
+        .attr('x', femaleGraphX)
         .attr('y', function(d){
             return yScale(d.year);
         })
@@ -125,26 +159,34 @@ d3.csv('movies.csv').then(function(dataset) {
         .attr('width', function(d){
             return wScale(d.femaleCount);
         })
-        .style('fill', '#F1948A');
+        .style('fill', '#9F1D5A');
 
     femaleGraph.append('g')
-            .attr('class', 'x axis')
-            .attr('transform', 'translate(400,20)')
-            .call(femaleAxis);
+        .attr('class', 'x axis')
+        .attr('transform', 'translate(400,'+(topPadding)+')')
+        .call(femaleAxis)
+        .style('stroke', '#E5F77D')
+        .attr('font-family', 'futura');
 
-    femaleGraph.select(".x.axis")
-        .select(".domain")
-        .style('stroke', "#fff");
+    var points = [
+        [femaleGraphX + wScale(50) - 20, topPadding], 
+        [femaleGraphX + wScale(50) - 20, 600]
+        ];
+
+    maleGraph.append('path')
+        .attr('d', lineGenerator(points))
+        .style('stroke', '#E5F77D')
+        .style('stroke-dasharray', '5,5');
+
+    console.log(yScale.bandwidth());
 
     var labels = yearsLabels.selectAll('text')
         .data(yearsDict)
         .enter()
         .append('text')
         .attr('x', 387)
-        .attr('y', function(d) {return 6+yScale(d.year);})
+        .attr('y', function(d) {return yScale(d.year) + (yScale.bandwidth() * 0.75);})
         .text(function(d) {return d.year;})
-        .attr('font-size', 2+yScale.bandwidth())
-        .attr('font-family', 'sans-serif');
-
+        .attr('font-size', yScale.bandwidth());
 
 })
