@@ -25,11 +25,29 @@ div {
   font-size: 10px;
 }
 
-#controls-container {
+.controls-container {
   background-color: #f2f2f9;
   width: 700px;
+  float: bottom;
 }
 
-#controls-container .date-slider {
+.controls-container .date-slider {
   width: 98%;
+}
+
+.container {
+  position: relative;
+  border: 2px solid #ccc;
+  width: 1000px;
+}
+
+.heatmap {
+  float: left;
+}
+
+.tagfilter {
+  float: right;
+  overflow-y: scroll;
+  width: 280px;
+  height: 780px;
 }

@@ -1,3 +1,5 @@
+// Tooltip code borrowed from https://www.d3-graph-gallery.com/graph/interactivity_tooltip.html
+
 var svg = d3.select('svg');
 var svgWidth = +svg.attr('width');
 var svgHeight = +svg.attr('height');
@@ -16,8 +18,8 @@ const cellHeight = chartHeight / (maxActors + 1);
 var yearLow = 1874,
   yearHigh = 2017;
 
-var colorScale = d3.scaleLinear()
-  .range(['white', 'blue', 'red']);
+var colorScale = d3.scaleSequential()
+  .interpolator(d3.interpolateCool);
 var xScale = d3.scaleLinear()
   .domain([0, maxActors])
   .range([0, chartWidth]);
@@ -48,6 +50,8 @@ yAxisG.append('text')
   .attr('text-anchor', 'middle')
   .attr('alignment-baseline', 'middle')
 
+var tooltip;
+
 d3.json('../data/movies.json').then(function(dataset) {
   movies = dataset;
   movies.forEach(function(movie) {
@@ -56,6 +60,32 @@ d3.json('../data/movies.json').then(function(dataset) {
   movies = movies.filter(x => x.female_cast > 0 || x.male_cast > 0);
   drawMovies();
 });
+
+function getTagList() {
+  let tag_counts = {};
+  let filtered_movies = movies.filter(function(movie) {
+    let year = movie.release_date.getFullYear();
+    return yearLow <= year && year <= yearHigh;
+  });
+  filtered_movies.forEach(function(movie) {
+    movie.keywords.forEach(function(tag) {
+      if (!(tag in tag_counts)) {
+        tag_counts[tag] = 1;
+      } else {
+        tag_counts[tag] += 1;
+      }
+    })
+  });
+  out = Object.entries(tag_counts).map(x => ({
+    keyword: x[0],
+    count: x[1]
+  }));
+  out.sort(function(a, b) {
+    if (a.count == b.count) return a.keyword > b.keyword ? 1 : -1;
+    return a.count > b.count ? -1 : 1;
+  });
+  return out;
+};
 
 function getGridVals() {
   let grid = new Array(maxActors + 1);
@@ -89,6 +119,7 @@ function getGridVals() {
 
 function drawMovies() {
   var grid = getGridVals();
+  var tags = getTagList();
   var maxCount = d3.max(grid.map(x => x.count));
   colorScale.domain([0, maxCount / 2, maxCount]);
   // Heatmap
@@ -98,18 +129,56 @@ function drawMovies() {
     .append('g')
     .attr('class', 'cell')
     .attr('transform', d => 'translate(' + [xScale(d.m), yScale(d.f) - cellHeight] + ')')
+  tooltip = svg.append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
+  // Three function that change the tooltip when user hover / move / leave a cell
+  var mouseover = function(d) {
+    tooltip
+      .style("opacity", 1)
+    d3.select(this)
+      .style("stroke", 'red');
+  }
+  var mousemove = function(d) {
+    tooltip
+      .html("There are " + d.count + " movies with " + d.m + " male cast members and " + d.f + "female cast members.")
+      .style("left", (d3.mouse(this)[0] + 70) + "px")
+      .style("top", (d3.mouse(this)[1]) + "px")
+  }
+  var mouseleave = function(d) {
+    tooltip
+      .style("opacity", 0)
+    d3.select(this)
+      .style("stroke", 'black');
+  }
   cellsEnter.append('rect')
     .attr('width', cellWidth)
     .attr('height', cellHeight)
     .style('fill', d => colorScale(d.count))
     .style('stroke-width', d => d.m == d.f ? 5 : 1)
-  // cellsEnter.append("text")
-  //   .text(d => d.count)
-  //   .attr('text-anchor', 'middle')
-  //   .attr('alignment-baseline', 'middle')
-  //   .attr('dx', cellWidth / 2)
-  //   .attr('dy', cellHeight / 2);
+    .style('stroke', 'black')
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave);
+
+  // Populate tag list:
+  tagDiv = d3.select(".tagfilter");
+  tags = tagDiv.selectAll('.tagbox')
+    .data(tags);
+  tagsEnter = tags.enter()
+    .append('g')
+    .attr('class', 'tagbox');
+  tagsEnter.append('input')
+    .attr('type', 'checkbox');
+  tagsEnter.append('span')
+    .html(d => d.keyword + " (" + d.count + ")<br>");
 }
+
 
 function updateMovies() {
   var grid = getGridVals();
@@ -117,14 +186,11 @@ function updateMovies() {
   colorScale.domain([0, maxCount / 2, maxCount]);
   // Heatmap
   var cells = chartG.selectAll('.cell')
-    .data(grid)
-  // .enter();
+    .data(grid);
   cells.selectAll('rect')
     .transition()
     .duration(200)
     .style('fill', d => colorScale(d.count));
-  // cells.selectAll("text")
-  //   .text(d => d.count)
 }
 
 function changeYearLow(year, update = true) {
