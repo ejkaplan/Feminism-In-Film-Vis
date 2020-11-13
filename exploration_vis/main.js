@@ -1,4 +1,4 @@
-// Tooltip code borrowed from https://www.d3-graph-gallery.com/graph/interactivity_tooltip.html
+// Tooltip code adapted from https://www.d3-graph-gallery.com/graph/interactivity_tooltip.html and https://bl.ocks.org/d3noob/a22c42db65eb00d4e369
 
 var svg = d3.select('svg');
 var svgWidth = +svg.attr('width');
@@ -142,7 +142,7 @@ function drawMovies() {
     .append('g')
     .attr('class', 'cell')
     .attr('transform', d => 'translate(' + [xScale(d.m), yScale(d.f) - cellHeight] + ')')
-  // Three function that change the tooltip when user hover / move / leave a cell
+  // Functions for enter/exit a cell to show/hide tooltips
   var mouseover = function(d) {
     tooltipDiv
       .transition()
@@ -162,6 +162,7 @@ function drawMovies() {
     d3.select(this)
       .style("stroke", 'black');
   }
+  // Draw the rectangles
   cellsEnter.append('rect')
     .attr('width', cellWidth)
     .attr('height', cellHeight)
