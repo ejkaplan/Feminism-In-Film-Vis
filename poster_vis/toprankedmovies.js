@@ -13,9 +13,6 @@ function dataPreprocessor(row) {
     }; 
 }
 
-d3.csv("../data/FeminismMoviesWave4.csv", dataPreprocessor).then (function(moviedata) {
-    console.log(moviedata);
-
     // **** Your JavaScript code goes here ****
     var svg = d3.select('svg');
 
@@ -37,6 +34,10 @@ d3.csv("../data/FeminismMoviesWave4.csv", dataPreprocessor).then (function(movie
 
     var imageWidth = 110;
     var imageHeight = 165.3;
+
+
+d3.csv("../data/FeminismMoviesWave3.csv", dataPreprocessor).then (function(moviedata) {
+    console.log(moviedata);
 
     // X SCALE
     var xAxisLabels = [];
@@ -215,10 +216,10 @@ d3.csv("../data/FeminismMoviesWave4.csv", dataPreprocessor).then (function(movie
                 .attr('opacity', '1.0');
         })
 
-    var toolTipPercent = d3.select("body")
-        .append("div")   
-        .attr("class", "tooltip-percent")               
-        .style("opacity", 0);
+    // var toolTipPercent = d3.select("body")
+    //     .append("div")   
+    //     .attr("class", "tooltip-percent")               
+    //     .style("opacity", 0);
 
     barGroup.append("rect")
         .attr("class", "percentageBar")
@@ -241,6 +242,14 @@ d3.csv("../data/FeminismMoviesWave4.csv", dataPreprocessor).then (function(movie
                 .transition()        
                 .duration(100)      
                 .attr("fill-opacity", 1.0);
+            // d3.selectAll("circle")
+            //     .attr("fill", function () {
+            //         if 
+
+            //     })
+                // do similar thing on mouseout
+
+
             // let formattedpercent = function(d) {
             //     return d["percent_fem"] + "%";}   
             // toolTipPercent
@@ -280,9 +289,7 @@ d3.csv("../data/FeminismMoviesWave4.csv", dataPreprocessor).then (function(movie
         // });        
 
     //Code for bar labels
-    barGroup.selectAll("text")
-        .data(moviedata)
-        .enter()
+    barGroup
         .append("text")
         .text(function(d) {
             return (Number(d['percent_fem'])) + "%";
@@ -298,6 +305,7 @@ d3.csv("../data/FeminismMoviesWave4.csv", dataPreprocessor).then (function(movie
         .attr("font-size", "10px")
         .attr("font-weight", 100)
         .attr("fill", "white");
+
         // .on("mouseover", function(d) {
         //     d3.select(this)      
         //         .attr("fill-opacity", 1.0);
@@ -356,6 +364,32 @@ d3.csv("../data/FeminismMoviesWave4.csv", dataPreprocessor).then (function(movie
                 .duration(100)      
                 .style("opacity", 0);
         });
+
+
+    // var brush = d3.brush()
+    // .extent([[0, 0], [600, 260]])
+    // .on("start end", updateChart)
+    // //     .on("brush", brushmove)
+    // //     .on("end", brushend)
+
+
+    // function updateChart() {
+
+    //     // Get the selection coordinate
+    //     extent = d3.event.selection   // looks like [ [12,11], [132,178]]
+
+    //     // Is the circle in the selection?
+    //     isBrushed = extent[0][0] <= circles.attr("cx") && extent[1][0] >= circles.attr("cx") && // Check X coordinate
+    //                 extent[0][1] <= circles.attr("cy") && extent[1][1] >= circles.attr("cy")  // And Y coordinate
+
+    //     // Circle is green if in the selection, pink otherwise
+    //     if (isBrushed){
+    //         myCircle.transition().duration(200).style("fill", "green")
+    //     }
+    //     else {
+    //         myCircle.transition().duration(200).style("fill", "pink")
+    //     }
+    // }
 
 
 });
