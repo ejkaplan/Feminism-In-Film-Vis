@@ -150,7 +150,7 @@ function drawMovies() {
       .style("opacity", 1)
     tooltipDiv.html(d.count + " movies with " + d.m + " " + "credited male actors and " + d.f + " credited female actors.")
       .style("left", (d3.event.pageX) + "px")
-      .style("top", (d3.event.pageY - 28) + "px");;
+      .style("top", (d3.event.pageY - cellHeight) + "px");;
     d3.select(this)
       .style("stroke", 'red');
   }
@@ -193,7 +193,6 @@ function drawMovies() {
 
 function updateMovies() {
   var grid = getGridVals();
-  console.log(grid);
   var maxCount = d3.max(grid.map(x => x.count));
   colorScale.domain([0, maxCount]);
   // Heatmap
