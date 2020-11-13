@@ -13,7 +13,7 @@ function dataPreprocessor(row) {
     }; 
 }
 
-d3.csv("../data/FeminismMoviesWave3.csv", dataPreprocessor).then (function(moviedata) {
+d3.csv("../data/FeminismMoviesWave4.csv", dataPreprocessor).then (function(moviedata) {
     console.log(moviedata);
 
     // **** Your JavaScript code goes here ****
@@ -141,26 +141,6 @@ d3.csv("../data/FeminismMoviesWave3.csv", dataPreprocessor).then (function(movie
         .transition().duration(800)
         .attr("fill", "white")
 
-    // // Code for bar labels
-    // svg.selectAll("text")
-    //     .data(moviedata)
-    //     .enter()
-    //     .append("text")
-    //     .text(function(d) {
-    //         return (Number(d['percent_fem'])) + "%";
-    //     })
-    //     .attr("x", function (d, i) {
-    //         return 60 + 3 + 45 + (i * (chartWidth/10)); //3 is half padding, 45 is half bar
-    //     })
-    //     .attr("text-anchor", "middle")
-    //     .attr("y", function (d) {
-    //         return (chartHeight - 300 - Number(d['percent_fem']))-5;
-    //     })
-    //     .attr("font-family", "sans-serif")
-    //     .attr("font-weight", "bold")
-    //     .attr("font-size", "13px")
-    //     .attr("fill", "black");
-
     // Creates array of posters using ForLoop
     var imgLinks = [];
     for (let i = 0; i < 10; i++) {
@@ -192,7 +172,7 @@ d3.csv("../data/FeminismMoviesWave3.csv", dataPreprocessor).then (function(movie
         .html(function(d, i) {
             //console.log(d);
             //console.log(i);
-            return "<h5>"+d['title']+" ("+d['year']+ ")" + "</h5> <table><thead><tr><td>Vote Average</td><td colspan='2'>Vote Count</td></tr></thead>"
+            return "<h5>"+ "#" + d['ranking'] + ". " + d['title']+" ("+d['year']+ ")" + "</h5> <table><thead><tr><td>Vote Average</td><td colspan='2'>Vote Count</td></tr></thead>"
              + "<tbody><tr><td>"+d['vote_average'] + "</td><td colspan='2'>"+d['vote_count'] + " Votes" +"</td></tr></tbody> </table>";
         });
         // <td>"+d['vote_average']+" Rating, " + d['vote_count'] + " Votes" + "</td><td>Votes</td></tr></thead>"
@@ -235,6 +215,11 @@ d3.csv("../data/FeminismMoviesWave3.csv", dataPreprocessor).then (function(movie
                 .attr('opacity', '1.0');
         })
 
+    var toolTipPercent = d3.select("body")
+        .append("div")   
+        .attr("class", "tooltip-percent")               
+        .style("opacity", 0);
+
     barGroup.append("rect")
         .attr("class", "percentageBar")
         .attr("x", function (d, i) {
@@ -249,29 +234,92 @@ d3.csv("../data/FeminismMoviesWave3.csv", dataPreprocessor).then (function(movie
         })
         .attr('fill', '#9F1D5A')
         .attr("stroke", "white")
-        .attr('fill-opacity', 0.7);
+        .attr('fill-opacity', 0.8)
+        .on("mouseover", function(d) {
+            d3.select(this)      
+                .attr("stroke", "black")
+                .transition()        
+                .duration(100)      
+                .attr("fill-opacity", 1.0);
+            // let formattedpercent = function(d) {
+            //     return d["percent_fem"] + "%";}   
+            // toolTipPercent
+            //     .html(formattedpercent(d))
+            //     .style("left", (d3.event.pageX + 10) + "px")     
+            //     .style("top", (d3.event.pageY - 28) + "px");    
+        })                  
+        .on("mouseout", function(d) {
+            d3.select(this)      
+                .attr("stroke", "white")      
+                .transition()        
+                .duration(100)      
+                .attr("fill-opacity", 0.8);
+        });
 
+        // .on("mouseover", function(d) {
+        //     d3.select(this)      
+        //         .attr("stroke", "black");
+        //     toolTipPercent
+        //         .transition()        
+        //         .duration(200)      
+        //         .style("opacity", 1.0);
+        //     let formattedpercent = function(d) {
+        //         return d["percent_fem"] + "%";}   
+        //     toolTipPercent
+        //         .html(formattedpercent(d))
+        //         .style("left", (d3.event.pageX + 10) + "px")     
+        //         .style("top", (d3.event.pageY - 28) + "px");    
+        // })                  
+        // .on("mouseout", function(d) {
+        //     d3.select(this)      
+        //         .attr("stroke", "white");       
+        //     toolTipPercent
+        //         .transition()        
+        //         .duration(200)      
+        //         .style("opacity", 0);
+        // });        
 
-        // .on('mouseover', function(d) {
-        //     var hovered = d3.select(this);
-        //     hovered.classed('hovered', true);
-        //     hovered.append('text')
-        //         .attr('class', 'value')
-        //         .attr('x', 200)
-        //         .attr('y', 300)
-        //         .text(d['percent_fem']);
-        // })
-        // .on('mouseout', function(d) {
-        //     var hovered = d3.select(this);
-        //     hovered.classed('hovered', false);
-        //     hovered.select('text.value').remove();
+    //Code for bar labels
+    barGroup.selectAll("text")
+        .data(moviedata)
+        .enter()
+        .append("text")
+        .text(function(d) {
+            return (Number(d['percent_fem'])) + "%";
+        })
+        .attr("x", function (d, i) {
+            return  125 + 40 + (imageWidth/2) + (0.95 * i * (chartWidth/10));
+        })
+        .attr("y", function (d) {
+            return  (chartHeight - 188 - Number(d['percent_fem']));
+        })
+        .attr("text-anchor", "middle")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "10px")
+        .attr("font-weight", 100)
+        .attr("fill", "white");
+        // .on("mouseover", function(d) {
+        //     d3.select(this)      
+        //         .attr("fill-opacity", 1.0);
+        //     // toolTipPercent.transition()        
+        //     //     .duration(200)
+        //     //     .style("opacity", 1.0)  
+        //     //     .html("this is a test")
+        //     //     .style("left", (d3.event.pageX + 10) + "px")     
+        //     //     .style("top", (d3.event.pageY - 28) + "px");    
+        // })                  
+        // .on("mouseout", function(d) {
+        //     d3.select(this)      
+        //         .attr('fill-opacity', 0.8);       
+        //     // toolTipPercent.transition()        
+        //     //     .duration(200);
         // });
 
     var toolTipCircle = d3.select("body")
         .append("div")   
         .attr("class", "tooltip-circle")               
         .style("opacity", 0);
-
+ 
     // Code for circles //
     var circles = svg.selectAll("circle")
         .data(moviedata)
@@ -289,21 +337,23 @@ d3.csv("../data/FeminismMoviesWave3.csv", dataPreprocessor).then (function(movie
         .on("mouseover", function(d) {
             d3.select(this)      
                 .attr("stroke", "black");
-            toolTipCircle.transition()        
-                .duration(200)      
+            toolTipCircle
+                .transition()        
+                .duration(100)      
                 .style("opacity", 1.0);
             let formattednum = function(d) {
                 return "$" + d3.format(",.2f")(d["revenue"]);}   
             toolTipCircle
-                .html("#" + d["ranking"] + ": " + formattednum(d))
+                .html(formattednum(d))
                 .style("left", (d3.event.pageX + 10) + "px")     
                 .style("top", (d3.event.pageY - 28) + "px");    
         })                  
         .on("mouseout", function(d) {
             d3.select(this)      
                 .attr("stroke", "white");       
-            toolTipCircle.transition()        
-                .duration(200)      
+            toolTipCircle
+                .transition()        
+                .duration(100)      
                 .style("opacity", 0);
         });
 

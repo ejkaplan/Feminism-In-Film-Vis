@@ -10,7 +10,6 @@
   color: #FFFFFF;
 }
 
-
 .axis .tick line {
   stroke: white;
 }
@@ -23,50 +22,6 @@
   color: "white";
 }
 
-rect rect.darkBar {
-  fill-opacity: .8;
-}
-
-/*rect.hidden {
-  fill: #ccc !important;
-  fill-opacity: .2;
-}*/
-
-rect rect.darkBar:hover {
-  fill-opacity: 0;
-}
-
-/*.g.darkBar text {
-  opacity: 0;
-}
-
-.g.darkBar:hover text {
-  opacity: 1;
-}
-*/
-
-/*.d3-tip-percent {
-     position: absolute;
-     text-align: center;
-     padding: .5rem;
-     background: #FFFFFF;
-     color: #313639;
-     border: 1px solid #313639;
-     border-radius: 8px;
-     pointer-events: none;
-     font-size: 1.3rem;
-}
-*/
-/*.axis path.domain {
-	stroke: #000;
-}*/
-
-/*
-
-.circle text {
-  fill: white;
-}*/
-
 .d3-tip {
   line-height: 1;
   padding: 6px;
@@ -77,10 +32,25 @@ rect rect.darkBar:hover {
   font-family: Futura;
 }
 
+div.tooltip-percent { 
+    position: absolute;     
+    text-align: left;     
+    width: 30px;          
+    height: 15px; 
+    line-height: 10px;
+    padding: 6px;
+    background: rgba(240, 240, 240, 0.95);
+    color: #333;
+    border-radius: 4px;
+    font-size: 10px;
+    font-family: Futura;          
+    pointer-events: none;
+}
+
 div.tooltip-circle { 
     position: absolute;     
     text-align: left;     
-    width: 110px;          
+    width: 90px;          
     height: 15px; 
     line-height: 10px;
     padding: 6px;
