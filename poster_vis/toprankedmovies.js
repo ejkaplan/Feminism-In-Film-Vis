@@ -5,7 +5,7 @@ function dataPreprocessor(row) {
         percent_fem: +row.percent_fem,
         revenue: +row.revenue,
         title: row.title,
-        poster_path: "https://image.tmdb.org/t/p/w92" + row.poster_path, 
+        poster_path: "https://image.tmdb.org/t/p/w185" + row.poster_path, 
         vote_average: row.vote_average,
         vote_count: row.vote_count,
         year: row.year,
@@ -13,54 +13,133 @@ function dataPreprocessor(row) {
     }; 
 }
 
-d3.csv("../data/TopMoviesWave1.csv", dataPreprocessor).then (function(moviedata) {
+d3.csv("../data/FeminismMoviesWave3.csv", dataPreprocessor).then (function(moviedata) {
     console.log(moviedata);
 
     // **** Your JavaScript code goes here ****
     var svg = d3.select('svg');
 
+    svg.append("rect")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("fill", "#171717");
+
     // Get layout parameters
     var svgWidth = +svg.attr('width');
     var svgHeight = +svg.attr('height');
 
-    var padding = {t: 60, r: 60, b: 60, l: 60};
+    var padding = {t: 80, r: 80, b: 80, l: 80};
 
-    // Compute chart dimensions
+    //Compute chart dimensions
     var chartWidth = svgWidth - padding.l - padding.r;
     var chartHeight = svgHeight - padding.t - padding.b;
-    console.log(chartWidth); // = 980
+    console.log(chartWidth);
 
-    //Axes
-    var xScale = d3.scaleLinear()
-        .domain([1,10])
-        .range([0,(chartWidth-98)]); //difference between x coordinates
+    var imageWidth = 110;
+    var imageHeight = 165.3;
 
+    // X SCALE
+    var xAxisLabels = [];
+        for (let i = 0; i < 10; i++) {
+            xAxisLabels.push("#" + (moviedata[i]["ranking"]));
+        };
+        console.log(xAxisLabels);
+
+    var xScaleCustom = d3.scalePoint()
+        .domain(xAxisLabels, function(d,i) {
+            return d.xAxisLabels;
+        })
+        .range([0, chartWidth])
+        .padding(0.75);
+    
+    var xAxisCustom = d3.axisBottom(xScaleCustom);
+
+    // Y SCALE, TOP GRAPH
     var yScalePercent = d3.scaleLinear()
         .domain([0, 100])
-        .range([138,0]);
-
-    let xTickLabels = ['#1','#2','#3','#4','#5','#6', '#7', '#8', '#9', '#10'];
-    var xAxis = d3.axisBottom(xScale)
-        .tickFormat((d,i) => xTickLabels[i]);
+        .range([imageHeight,0]);
 
     let yTickLabels = ['0%', '20%', '40%', '60%', '80%', '100%'];
+
     var yAxisPercent = d3.axisLeft(yScalePercent)
-        .tickSize(-(chartWidth+5))
+        .tickSize(-(chartWidth + 0))
         .ticks(6)
         .tickFormat((d,i) => yTickLabels[i]);
 
+    //Y SCALES, BOTTOM GRAPH
     var maxRev = d3.max(moviedata, function(d) {
-        return d["revenue"];
-    });
-    console.log(maxRev);
+        return d["revenue"]; 
+        });
+        console.log(maxRev);
 
     var yScaleRevenue = d3.scaleLinear()
-        .domain([0, maxRev])
-        .range([200,0]);
+        .domain([0, (maxRev+(maxRev/10))])
+        .range([(imageHeight * 1.5),0]);
 
     var yAxisRevenue = d3.axisLeft(yScaleRevenue)
-        .tickSize(-(chartWidth+5))
-        .ticks(8);
+        .tickSize(-(chartWidth + 0)) //(padding.r/2)
+        .tickFormat(d3.formatPrefix("$0.1", 1e6));
+
+    //DRAW AXES
+    svg.append('g')
+        .attr('class', 'y axis')
+        .attr('transform', 'translate(100,80)')
+        //.transition().duration(800)
+        .call(yAxisPercent)
+        .call(g => g.select(".domain").remove())
+        .call(g => g.selectAll(".tick line")
+            .attr("stroke", "white")
+            .attr("stroke-opacity", 0.5)
+            .attr("stroke-dasharray", "2,2"))
+        .call(g => g.selectAll(".tick text")
+            .attr("x", 30)
+            .attr("y", -10));        
+
+    svg.append('g')
+        .attr('class', 'x axis')
+        .attr('transform', 'translate(130, 538)') //200 xaxis = 90 y axis for y coord.
+        // .transition().duration(800)
+        .call(xAxisCustom)
+        .call(g => g.select(".domain").remove());
+        // .call(g => g.selectAll(".tick text")
+        // .call(wrap, imageWidth);
+
+    svg.append('g')
+        .attr('class', 'y axis')
+        .attr('transform', 'translate(100,290)')
+        //.transition().duration(100)
+        .call(yAxisRevenue)
+            // .attr("stroke", "white")
+        .call(g => g.select(".domain").remove())
+        .call(g => g.selectAll(".tick:not(:first-of-type) line")
+            .attr("stroke", "white")
+            .attr("stroke-opacity", 0.5)
+            .attr("stroke-dasharray", "2,2"))
+        .call(g => g.selectAll(".tick text")
+            .attr("x", 30)
+            .attr("y", -10));
+
+    // DRAW AXIS TEXT
+    svg.append('text')
+        .attr('class', 'axis-label')
+        .text('Female Cast and Crew (%)')
+        .attr('transform', 'translate (70, 230), rotate (-90)')
+        .transition().duration(800)
+        .attr("fill", "white");
+
+    svg.append('text')
+        .attr('class', 'axis-label')
+        .text('Revenue of Film (in USD)')
+        .attr('transform', 'translate (70, 480), rotate (-90)')
+        .transition().duration(800)
+        .attr("fill", "white");
+
+    svg.append('text')
+        .attr('class', 'axis-label')
+        .text('Top 10 Ranked Feminist Films in the Wave')
+        .attr('transform', 'translate (630, 585)')
+        .transition().duration(800)
+        .attr("fill", "white")
 
     // // Code for bar labels
     // svg.selectAll("text")
@@ -82,61 +161,6 @@ d3.csv("../data/TopMoviesWave1.csv", dataPreprocessor).then (function(moviedata)
     //     .attr("font-size", "13px")
     //     .attr("fill", "black");
 
-    // Draw Axes
-    svg.append('g')
-        .attr('class', 'x axis')
-        .attr('transform', 'translate(105,218)') //200 xaxis = 90 y axis for y coord.
-        .transition().duration(800)
-        .call(xAxis)
-        .attr("font-size", "11px");
-
-    svg.append('g')
-        .attr('class', 'y axis')
-        .attr('transform', 'translate(50,80)')
-        .transition().duration(800)
-        .call(yAxisPercent)
-        .attr("font-size", "11px")
-        .selectAll('.tick line')
-        .attr("stroke", "black")
-        .attr('opacity', 0.2);
-        //.select(".domain").remove();
-
-    //Axes Labels
-    svg.append('text')
-        .attr('class', 'x label')
-        .attr('transform', 'translate (10, 300)')
-        .transition().duration(800)
-        .text('Revenue of Top 10 Ranked Movies in Wave 1')
-        .attr("font-family", "sans-serif")
-        .attr("font-weight", "bold")
-        .attr("font-size", "16px")
-        .attr("fill", "black");
-
-    svg.append('text')
-        .attr('class', 'y label')
-        .attr('transform', 'translate (15, 50)')
-        .transition().duration(800)
-        .text('Percentage of Female Cast and Crew in Top 10 Ranked Movies in Wave 1')
-        .attr("font-family", "sans-serif")
-        .attr("font-weight", "bold")
-        .attr("font-size", "16px")
-        .attr("fill", "black");
-
-    var toolTip = d3.tip()
-        .attr("class", "d3-tip")
-        .offset([-12, 0])
-        .html(function(d, i) {
-            console.log(d);
-            console.log(i);
-            return "<h5>"+d['title']+"</h5><table><thead><tr><td>Year</td><td>Percent Female</td></tr></thead>"
-             + "<tbody><tr><td>"+d['year']+"</td><td>"+d['percent_fem']+"%</td></tr></tbody>"
-             + "<thead><tr><td>Vote Average</td><td colspan='2'>Vote Count</td></tr></thead>"
-             + "<tbody><tr><td>"+d['vote_average']+"</td><td colspan='2'>"+d['vote_count']+"</td></tr></tbody></table>";
-        });
-
-
-    svg.call(toolTip);
-
     // Creates array of posters using ForLoop
     var imgLinks = [];
     for (let i = 0; i < 10; i++) {
@@ -144,86 +168,145 @@ d3.csv("../data/TopMoviesWave1.csv", dataPreprocessor).then (function(moviedata)
     };
     console.log(imgLinks);
 
+    // DRAWS POSTERS
     var imgs = svg.selectAll("image")
         .data(imgLinks)
         .enter()
         .append("svg:image")
         .attr("x", function (d, i) {
-            return  60 + (i * (chartWidth/10)); //98 padding is 6 between each bar
+            return  125 + 40 + (0.95 * i * (chartWidth/10)); //98 padding is 6 between each bar
         })
         .attr("y", function (d) {
-            return  (chartHeight - 300);
+            return  (chartHeight - 360);
         })
-        .attr("width", "92")
-        .attr("height", "138")
+        .attr("width", imageWidth)
+        .attr("height", imageHeight) //need to cite height to cut off images taller 
         .attr("xlink:href", function (d, i){ 
             return imgLinks[i];
         });
 
-    // Code for bars
-    var bar = d3.select('svg').selectAll("rect")
+    //POSTER TOOL TIP
+    var toolTipPoster = d3.tip()
+        .attr("class", "d3-tip")
+        .offset([-12, 0])
+        .html(function(d, i) {
+            //console.log(d);
+            //console.log(i);
+            return "<h5>"+d['title']+" ("+d['year']+ ")" + "</h5> <table><thead><tr><td>Vote Average</td><td colspan='2'>Vote Count</td></tr></thead>"
+             + "<tbody><tr><td>"+d['vote_average'] + "</td><td colspan='2'>"+d['vote_count'] + " Votes" +"</td></tr></tbody> </table>";
+        });
+        // <td>"+d['vote_average']+" Rating, " + d['vote_count'] + " Votes" + "</td><td>Votes</td></tr></thead>"
+        //      + "<tbody><tr><td>"+d['year']+"</td><td>"+d['percent_fem']+"%</td></tr></tbody>"
+        //      + "<thead><tr>
+    svg.call(toolTipPoster);
+
+    // GROUP FOR BARS   
+    var barGroup = d3.select('svg').selectAll("bars")
         .data(moviedata)
         .enter()
-        .append("rect")
-        .attr("class", "bar")
+        .append("g");
+
+    barGroup.append("rect")
+        .attr("class", "posterBar")
         .attr("x", function (d, i) {
-            return  60 + (i * (chartWidth/10)); //98 padding is 6 between each bar
+            return  125 + 40 + (0.95 * i * (chartWidth/10)); //98 padding is 6 between each bar
         })
         .attr("y", function (d) {
-            return  (chartHeight - 162 - 5 - Number(d['percent_fem']));
+            return  (chartHeight - 360);
         })
-        .attr("width", 92)
+        .attr("width", imageWidth)
+        .attr("height", imageHeight)
+        .attr('fill', 'black')
+        .attr('fill-opacity', 0.8)
+        // .on('mouseover', toolTipPoster.show)
+        // .on('mouseout', toolTipPoster.hide)
+        .on('mouseover', function (d, i) {
+            toolTipPoster.show(d);
+            d3.select(this)
+                .transition()
+                .duration('200')
+                .attr('opacity', '0.0');
+        })
+        .on('mouseout', function (d, i) {
+            toolTipPoster.hide(d);
+            d3.select(this)
+                .transition()
+                .duration('200')
+                .attr('opacity', '1.0');
+        })
+
+    barGroup.append("rect")
+        .attr("class", "percentageBar")
+        .attr("x", function (d, i) {
+            return  125 + 40 + (0.95 * i * (chartWidth/10));
+        })
+        .attr("y", function (d) {
+            return  (chartHeight - 199 - Number(d['percent_fem']));
+        })
+        .attr("width", imageWidth)
         .attr("height", function (d) {
             return (5+ Number(d['percent_fem']));
         })
-        .attr('fill', 'white')
-        .attr('fill-opacity', 0.9)
-        .on('mouseover', toolTip.show)
-        .on('mouseout', toolTip.hide);
+        .attr('fill', '#9F1D5A')
+        .attr("stroke", "white")
+        .attr('fill-opacity', 0.7);
 
-    // Draw Axes
-    svg.append('g')
-        .attr('class', 'x axis')
-        .attr('transform', 'translate(105,418)') //200 xaxis = 90 y axis for y coord.
-        .transition().duration(800)
-        .call(xAxis)
-        .attr("font-size", "11px");
 
-    svg.append('g')
-        .attr('class', 'y axis')
-        .attr('transform', 'translate(50,280)')
-        .transition().duration(800)
-        .call(yAxisRevenue)
-        .attr("font-size", "12px")
-        .selectAll('.tick line')
-        .attr("stroke", "black")
-        .attr('opacity', 0.2);
+        // .on('mouseover', function(d) {
+        //     var hovered = d3.select(this);
+        //     hovered.classed('hovered', true);
+        //     hovered.append('text')
+        //         .attr('class', 'value')
+        //         .attr('x', 200)
+        //         .attr('y', 300)
+        //         .text(d['percent_fem']);
+        // })
+        // .on('mouseout', function(d) {
+        //     var hovered = d3.select(this);
+        //     hovered.classed('hovered', false);
+        //     hovered.select('text.value').remove();
+        // });
 
-     // // Code for circles //
+    var toolTipCircle = d3.select("body")
+        .append("div")   
+        .attr("class", "tooltip-circle")               
+        .style("opacity", 0);
 
+    // Code for circles //
     var circles = svg.selectAll("circle")
         .data(moviedata)
         .enter()
-        .append("circle");
-
-    circles
+        .append("circle")
         .attr("cx", function (d, i) {
-            return  60 + (i * (chartWidth/10)); //98 padding is 6 between each bar
+            return  124 + 40 + (imageWidth/2) + (0.95 * i * (chartWidth/10)); //98 padding is 6 between each bar
         })
-        .attr("cy", 400)
-        .attr("r", 5)
-        .style ("fill", "teal");
-
-
-        // .filter (function (d) {
-        //     return d.rank == "1" || d.rank =="2" || d.rank =="3";
-        // })
-        // .style ("fill", "orange")
-        // .style ("stroke", "black")
-        // .style ("stroke-width", 0.2)
-        // .style("opacity", 0.5);
+        .attr("cy", function (d) {
+            return  (yScaleRevenue(d["revenue"])) + 285 ;
+        })
+        .attr("r", 7)
+        .attr("fill", "#9F1D5A")
+        .attr("stroke","white")
+        .on("mouseover", function(d) {
+            d3.select(this)      
+                .attr("stroke", "black");
+            toolTipCircle.transition()        
+                .duration(200)      
+                .style("opacity", 1.0);
+            let formattednum = function(d) {
+                return "$" + d3.format(",.2f")(d["revenue"]);}   
+            toolTipCircle
+                .html("#" + d["ranking"] + ": " + formattednum(d))
+                .style("left", (d3.event.pageX + 10) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px");    
+        })                  
+        .on("mouseout", function(d) {
+            d3.select(this)      
+                .attr("stroke", "white");       
+            toolTipCircle.transition()        
+                .duration(200)      
+                .style("opacity", 0);
+        });
 
 
 });
 
-   
