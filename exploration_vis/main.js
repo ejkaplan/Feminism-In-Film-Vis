@@ -190,7 +190,6 @@ function drawMovies() {
     .html(d => d.keyword + " (" + d.count + ")<br>");
 }
 
-
 function updateMovies() {
   var grid = getGridVals();
   var maxCount = d3.max(grid.map(x => x.count));
