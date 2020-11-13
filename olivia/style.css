@@ -1,10 +1,8 @@
-
-
 .rect.hovered text {
-    font-weight: bold;
-};
+  font-weight: bold;
+}
 
-
+;
 
 .axis .tick text {
   font-family: Futura, sans-serif;
@@ -16,23 +14,17 @@
   text-transform: none;
   color: #FFFFFF;
 }
-
-
 }
 
-
 .axis .tick text {
-		font-family: futura;
+  font-family: futura;
+  font-size: 10px;
+  font-weight: 100;
+}
 
-		font-size: 10px;
-		font-weight: 100;
-	
-	}
-	
-	.axis path.domain {
-		stroke: #555;
-	}
-
+.axis path.domain {
+  stroke: #555;
+}
 
 .d3-tip {
   line-height: 1;
@@ -65,7 +57,7 @@
   left: 0;
 }
 
-.d3-tip h5{
+.d3-tip h5 {
   font-size: 13px;
   font-family: futura;
   font-weight: 600;
