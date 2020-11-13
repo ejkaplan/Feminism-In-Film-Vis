@@ -15,7 +15,7 @@ var chartHeight = svgHeight - padding.t - padding.b;
 const cellWidth = chartWidth / (maxActors + 1);
 const cellHeight = chartHeight / (maxActors + 1);
 
-var yearLow = 1874,
+var yearLow = 1920,
   yearHigh = 2017;
 
 var colorScale = d3.scaleSequential()
@@ -50,7 +50,10 @@ yAxisG.append('text')
   .attr('text-anchor', 'middle')
   .attr('alignment-baseline', 'middle')
 
-var tooltip;
+var tooltipDiv = d3.select('body').append('div')
+  .attr('class', 'tooltip')
+  .style('opacity', 0);
+var selectedTags = new Set();
 
 d3.json('../data/movies.json').then(function(dataset) {
   movies = dataset;
@@ -61,13 +64,27 @@ d3.json('../data/movies.json').then(function(dataset) {
   drawMovies();
 });
 
-function getTagList() {
-  let tag_counts = {};
+function getFilteredMovies() {
   let filtered_movies = movies.filter(function(movie) {
     let year = movie.release_date.getFullYear();
-    return yearLow <= year && year <= yearHigh;
+    if (yearLow <= year && year <= yearHigh) {
+      if (selectedTags.size == 0) {
+        return true;
+      }
+      for (const keyword of movie.keywords) {
+        if (selectedTags.has(keyword)) {
+          return true;
+        }
+      }
+    }
+    return false;
   });
-  filtered_movies.forEach(function(movie) {
+  return filtered_movies;
+}
+
+function getTagList() {
+  let tag_counts = {};
+  movies.forEach(function(movie) {
     movie.keywords.forEach(function(tag) {
       if (!(tag in tag_counts)) {
         tag_counts[tag] = 1;
@@ -92,10 +109,7 @@ function getGridVals() {
   for (let i = 0; i < maxActors + 1; i++) {
     grid[i] = new Array(maxActors + 1).fill(0);
   }
-  let filtered_movies = movies.filter(function(movie) {
-    let year = movie.release_date.getFullYear();
-    return yearLow <= year && year <= yearHigh;
-  });
+  let filtered_movies = getFilteredMovies();
   filtered_movies.forEach(function(movie) {
     let m = movie['male_cast'];
     let f = movie['female_cast'];
@@ -119,9 +133,8 @@ function getGridVals() {
 
 function drawMovies() {
   var grid = getGridVals();
-  var tags = getTagList();
   var maxCount = d3.max(grid.map(x => x.count));
-  colorScale.domain([0, maxCount / 2, maxCount]);
+  colorScale.domain([0, maxCount]);
   // Heatmap
   var cells = chartG.selectAll('.cell')
     .data(grid)
@@ -129,29 +142,22 @@ function drawMovies() {
     .append('g')
     .attr('class', 'cell')
     .attr('transform', d => 'translate(' + [xScale(d.m), yScale(d.f) - cellHeight] + ')')
-  tooltip = svg.append("div")
-    .style("opacity", 0)
-    .attr("class", "tooltip")
-    .style("background-color", "white")
-    .style("border", "solid")
-    .style("border-width", "2px")
-    .style("border-radius", "5px")
-    .style("padding", "5px")
   // Three function that change the tooltip when user hover / move / leave a cell
   var mouseover = function(d) {
-    tooltip
+    tooltipDiv
+      .transition()
+      .duration(200)
       .style("opacity", 1)
+    tooltipDiv.html(d.count + " movies with " + d.m + " " + "credited male actors and " + d.f + " credited female actors.")
+      .style("left", (d3.event.pageX) + "px")
+      .style("top", (d3.event.pageY - 28) + "px");;
     d3.select(this)
       .style("stroke", 'red');
   }
-  var mousemove = function(d) {
-    tooltip
-      .html("There are " + d.count + " movies with " + d.m + " male cast members and " + d.f + "female cast members.")
-      .style("left", (d3.mouse(this)[0] + 70) + "px")
-      .style("top", (d3.mouse(this)[1]) + "px")
-  }
   var mouseleave = function(d) {
-    tooltip
+    tooltipDiv
+      .transition()
+      .duration(200)
       .style("opacity", 0)
     d3.select(this)
       .style("stroke", 'black');
@@ -163,18 +169,23 @@ function drawMovies() {
     .style('stroke-width', d => d.m == d.f ? 5 : 1)
     .style('stroke', 'black')
     .on("mouseover", mouseover)
-    .on("mousemove", mousemove)
     .on("mouseleave", mouseleave);
 
   // Populate tag list:
-  tagDiv = d3.select(".tagfilter");
-  tags = tagDiv.selectAll('.tagbox')
-    .data(tags);
-  tagsEnter = tags.enter()
+  var tagList = getTagList();
+  var tagDiv = d3.select(".tagfilter");
+  var tags = tagDiv.selectAll('.tagbox')
+    .data(tagList);
+  var tagsEnter = tags.enter()
     .append('g')
     .attr('class', 'tagbox');
   tagsEnter.append('input')
-    .attr('type', 'checkbox');
+    .attr('type', 'checkbox')
+    .on('change', function(d) {
+      if (this.checked) selectedTags.add(d.keyword);
+      else selectedTags.delete(d.keyword);
+      updateMovies();
+    });
   tagsEnter.append('span')
     .html(d => d.keyword + " (" + d.count + ")<br>");
 }
@@ -182,11 +193,12 @@ function drawMovies() {
 
 function updateMovies() {
   var grid = getGridVals();
+  console.log(grid);
   var maxCount = d3.max(grid.map(x => x.count));
-  colorScale.domain([0, maxCount / 2, maxCount]);
+  colorScale.domain([0, maxCount]);
   // Heatmap
   var cells = chartG.selectAll('.cell')
-    .data(grid);
+    .data(grid)
   cells.selectAll('rect')
     .transition()
     .duration(200)
