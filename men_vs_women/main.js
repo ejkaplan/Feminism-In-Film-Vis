@@ -1,9 +1,9 @@
 function buildMenVsWomen() {
 
   //Assign these variables based on scrollytelling
-  var era = "1";
-  var start = 1920;
-  var end = 1959;
+  // var era = "1";
+  // var start = 1920;
+  // var end = 1959;
 
 
   // var era = "2";
@@ -14,9 +14,9 @@ function buildMenVsWomen() {
   // var start = 1981;
   // var end = 2010;
 
-  // var era = "4";
-  // var start = 2011;
-  // var end = 2017;
+  var era = "4";
+  var start = 2011;
+  var end = 2017;
 
   //-------------------
 
@@ -47,6 +47,7 @@ function buildMenVsWomen() {
     .attr('y', topPadding)
     .style('fill', '#E5F77D')
     .attr('font-family', 'futura');
+
 
 
   d3.csv('./data/movies.csv').then(function(dataset) {
@@ -165,7 +166,7 @@ function buildMenVsWomen() {
       .attr('y', function(d) {
         return yScale(d.year);
       })
-      .attr('height', yScale.bandwidth())
+      .attr('height', 10)
       .attr('width', function(d) {
         return wScale(d.maleCount);
       })
@@ -239,7 +240,7 @@ function buildMenVsWomen() {
       .attr('y', function(d) {
         return yScale(d.year);
       })
-      .attr('height', yScale.bandwidth())
+      .attr('height', 10)
       .attr('width', function(d) {
         return wScale(d.femaleCount);
       })
