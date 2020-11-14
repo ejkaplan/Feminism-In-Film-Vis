@@ -117,3 +117,26 @@ div.tooltip-circle {
   font-size: 10px;
   padding-top: 10px;
 }
+
+.filter {
+    cursor: pointer;
+}
+
+.filter text {
+    font-size: 11px;
+    font-weight: normal;
+    fill: #333;
+}
+
+.filter rect{
+    fill: #ddd;
+}
+
+.filter.selected text {
+    fill: #fff;
+}
+
+.filter.selected rect {
+    fill: #9F1D5A;
+}
+
