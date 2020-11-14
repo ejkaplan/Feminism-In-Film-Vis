@@ -58,7 +58,7 @@ function buildMenVsWomen() {
     .attr('font-family', 'futura');
 
 
-  d3.csv('../data/movies.csv').then(function(dataset) {
+  d3.csv('./data/movies.csv').then(function(dataset) {
 
     var waveMovies = dataset.filter(function(d) {
       return d['wave'] == era;
@@ -88,12 +88,21 @@ function buildMenVsWomen() {
     for (var y = start; y <= end; y++) {
       yearsDict.push({
         'year': y,
-        'maleCount': 100 * (maleDict[y] / (maleDict[y] + femaleDict[y])),
-        'femaleCount': 100 * (femaleDict[y] / (maleDict[y] + femaleDict[y]))
+        'maleCount': Math.round(100 * (maleDict[y] / (maleDict[y] + femaleDict[y])).toFixed(4)),
+        'femaleCount': Math.round(100 * (femaleDict[y] / (maleDict[y] + femaleDict[y])).toFixed(4))
       });
     }
 
 
+    var toolTip = d3.tip()
+      .attr("class", "d3-tip")
+      .offset([-12, 0])
+      .html(function(d, i) {
+        return "<table><thead><tr><td>"+d.year+"</td></tr></thead>" +
+          "<tbody><tr><td>Percentage of Actors </td><td>" + d.maleCount + '%' + "</td></tr></tbody>" +
+          "<tbody><tr><td>Percentage of Actresses </td><td>" + d.femaleCount + '%' + "</td></tr></tbody>" +
+          "</table>";
+      });
 
     var yScale = d3.scaleBand()
       .domain(yearsDomain)
@@ -113,8 +122,6 @@ function buildMenVsWomen() {
     femaleAxis.tickFormat((d, i) => tickLabels[i]);
 
 
-
-
     maleGraph.selectAll('rect')
       .data(yearsDict)
       .enter()
@@ -132,7 +139,9 @@ function buildMenVsWomen() {
       .attr('width', function(d) {
         return wScale(d.maleCount);
       })
-      .style('fill', '#1861F8');
+      .style('fill', '#1861F8')
+      .on('mouseover', toolTip.show)
+      .on('mouseout', toolTip.hide);
 
     maleGraph.append('g')
       .attr('class', 'x axis')
@@ -167,7 +176,9 @@ function buildMenVsWomen() {
       .attr('width', function(d) {
         return wScale(d.femaleCount);
       })
-      .style('fill', '#9F1D5A');
+      .style('fill', '#9F1D5A')
+      .on('mouseover', toolTip.show)
+      .on('mouseout', toolTip.hide);
 
     femaleGraph.append('g')
       .attr('class', 'x axis')
@@ -192,14 +203,19 @@ function buildMenVsWomen() {
       .data(yearsDict)
       .enter()
       .append('text')
-      .attr('x', 387)
+      .attr('x', 385)
       .attr('y', function(d) {
-        return yScale(d.year) + (yScale.bandwidth() * 0.75);
+        return yScale(d.year) + (12 * 0.75);
       })
       .text(function(d) {
         return d.year;
       })
-      .attr('font-size', yScale.bandwidth());
+      .attr('font-size', 12)
+      .on('mouseover', toolTip.show)
+      .on('mouseout', toolTip.hide);
+
+
+    svg.call(toolTip);
 
   })
 }
