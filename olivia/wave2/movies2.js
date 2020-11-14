@@ -93,8 +93,24 @@ svg.selectAll('rect')
     .style('opacity', '100%')
     .attr('fill', '#A60067')
      .attr('fill-opacity', 0.9)
-        .on('mouseover', toolTip.show)
-        .on('mouseout', toolTip.hide);
+      
+           .on("mouseover", function(d) {
+         toolTip.show(d);
+        d3.select(this)
+         .attr("stroke", "white")
+          .transition()
+          .duration(100)
+          .attr("fill-opacity", 1.0);
+
+})
+          .on("mouseout", function(d) {
+            toolTip.hide(d);
+        d3.select(this)
+          .attr("stroke", "black")
+          .transition()
+          .duration(100)
+          .attr("fill-opacity", 0.8);
+      });
 
 
 
