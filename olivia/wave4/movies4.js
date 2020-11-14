@@ -7,7 +7,7 @@ var waveTimePeriods = [
 
 
 
-d3.csv('movies_avgwave1.csv').then(function(dataset) {
+d3.csv('movieswave4.csv').then(function(dataset) {
 
 console.log(dataset);
 
@@ -17,7 +17,7 @@ var extent = d3.extent(dataset, function(d) {
     })
 
 var xScale = d3.scaleBand()
-    .domain([1920, 1921, 1922, 1923, 1924, 1925, 1926, 1927, 1928, 1929, 1930, 1931, 1932, 1933, 1934, 1935, 1936, 1937, 1938, 1939, 1940, 1941, 1942, 1943, 1944, 1945, 1946, 1947, 1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959])
+    .domain([2011, 2012, 2013, 2014, 2015, 2016, 2017])
     // .domain([1920, 1959])
     .rangeRound([20,1220])
     .padding(0.5);
@@ -30,13 +30,13 @@ var hScale = d3.scaleLinear()
 
 
 var averageScale = d3.scaleLinear()
-    .domain([0,20])
+    .domain([0,10])
     .range([400,0]);
 
 
 var lineInterpolate = d3.line()
     .x(function(d) { console.log(xScale(d.Year)); return 67 + xScale(d.Year); })
-    .y(function(d) { console.log(averageScale(d.avg_female_cast)); return  60 + averageScale(d.avg_female_cast) });
+    .y(function(d) { console.log(averageScale(d.avg_female_cast4)); return  60 + averageScale(d.avg_female_cast4) });
 
 var toolTip = d3.tip()
         .attr("class", "d3-tip")
@@ -45,10 +45,10 @@ var toolTip = d3.tip()
             console.log(d);
             console.log(i);
             return "<table><thead><tr><td>Year</td><td>Count of Female Cast</td></tr></thead>"
-             + "<tbody><tr><td>"+d['Year']+"</td><td>"+d['sum_female_cast']+"</td></tr></tbody>"
+             + "<tbody><tr><td>"+d['Year']+"</td><td>"+d['sum_female_cast4']+"</td></tr></tbody>"
              + "<thead><tr><td></td><td colspan='2'>Average</td></tr></thead>"
              + "<tbody><tr><td>"+"</td><td colspan='2'>"
-             +d['avg_female_cast']+"</td></tr></tbody></table>";
+             +d['avg_female_cast4']+"</td></tr></tbody></table>";
         });
 
 
@@ -78,7 +78,7 @@ svg.selectAll('rect')
     })
     .attr('y', function(d) {
        // console.log(d.female_cast); 
-        return (60 + hScale(d.sum_female_cast)); 
+        return (60 + hScale(d.sum_female_cast4)); 
         }
     )
 
@@ -87,16 +87,14 @@ svg.selectAll('rect')
 
  .attr('width', xScale.bandwidth())
     .attr('height', function(d){
-        return  (0 + hScale(0)- hScale(d.sum_female_cast));
+        return  (0 + hScale(0)- hScale(d.sum_female_cast4));
     })
     .style('fill', '#A60067')
     .style('opacity', '100%')
     .attr('fill', '#A60067')
      .attr('fill-opacity', 0.9)
-      //  .on('mouseover', toolTip.show)
-       //.on('mouseout', toolTip.hide);
-
-         .on("mouseover", function(d) {
+        
+    .on("mouseover", function(d) {
          toolTip.show(d);
         d3.select(this)
          .attr("stroke", "white")
@@ -114,9 +112,10 @@ svg.selectAll('rect')
           .attr("fill-opacity", 0.8);
       });
 
-          
 
-  var xAxis =d3.axisBottom(xScale).ticks(4)
+
+
+  var xAxis =d3.axisBottom(xScale).ticks(10)
 
   svg.append('g')
     .attr('class', 'x axis')
