@@ -1,13 +1,4 @@
 function buildMenVsWomen() {
-  // Data fields: adult, budget, genres, title, poster_path, release_date, revenue, vote_average, year, wave
-  // vote_count, keywords, male_cast, female_cast, ungendered_cast, male_crew, female_crew, ungendered_crew
-
-  // var waveTimePeriods = [
-  //     { name: "Between the First and Second Waves", id: "first", start: 1920, end: 1959},
-  //     { name: "The Second Wave", id: "second", start: 1960, end: 1980},
-  //     { name: "The Third Wave", id: "third", start: 1981, end: 2010},
-  //     { name: "The Fourth Wave", id: "fourth", start: 2011, end: 2017},
-  // ];
 
   //Assign these variables based on scrollytelling
   var era = "1";
@@ -211,11 +202,25 @@ function buildMenVsWomen() {
         return d.year;
       })
       .attr('font-size', 12)
+      .style('fill', '#E5F77D')
       .on('mouseover', toolTip.show)
       .on('mouseout', toolTip.hide);
 
-
     svg.call(toolTip);
+
+    svg.append('text')
+      .attr('font-size', 16)
+      .text('Actors')
+      .attr('x', malewScale(50)-20)
+      .attr('y', 20)
+      .style('fill', '#E5F77D');
+
+    svg.append('text')
+      .attr('font-size', 16)
+      .text('Actresses')
+      .attr('x', femaleGraphX + wScale(50) - 50)
+      .attr('y', 20)
+      .style('fill', '#E5F77D');
 
   })
 }
