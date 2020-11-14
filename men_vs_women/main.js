@@ -103,14 +103,53 @@ function buildMenVsWomen() {
       .domain([0, 100])
       .range([20, 380]);
     var malewScale = d3.scaleLinear()
-      .domain([100, 0])
-      .range([20, 380]);
+      .domain([0, 100])
+      .range([380, 20]);
 
-    var tickLabels = ['', '50%', '100%'];
-    var maleAxis = d3.axisTop(malewScale).ticks(2);
-    maleAxis.tickFormat((d, i) => tickLabels[2 - i]);
-    var femaleAxis = d3.axisTop(wScale).ticks(2);
+    var tickLabels = ["", '20%','40%','60%', '80%', '100%'];
+    var maleAxis = d3.axisTop(malewScale).ticks(6);
+    maleAxis.tickFormat((d, i) => tickLabels[i]);
+    var femaleAxis = d3.axisTop(wScale).ticks(6);
     femaleAxis.tickFormat((d, i) => tickLabels[i]);
+
+    var lineGenerator = d3.line();
+    var male20points = [
+      [malewScale(20), topPadding],
+      [malewScale(20), 600]
+    ];
+
+    var male40points = [
+      [malewScale(40), topPadding],
+      [malewScale(40), 600]
+    ];
+
+    var male60points = [
+      [malewScale(60), topPadding],
+      [malewScale(60), 600]
+    ];
+
+    var male80points = [
+      [malewScale(80), topPadding],
+      [malewScale(80), 600]
+    ];
+
+    maleGraph.append('path')
+      .attr('d', lineGenerator(male20points))
+      .style('stroke', '#fff')
+      .style('stroke-opacity', '0.3');
+    maleGraph.append('path')
+      .attr('d', lineGenerator(male40points))
+      .style('stroke', '#fff')
+      .style('stroke-opacity', '0.3');
+    maleGraph.append('path')
+      .attr('d', lineGenerator(male60points))
+      .style('stroke', '#fff')
+      .style('stroke-opacity', '0.3');
+    maleGraph.append('path')
+      .attr('d', lineGenerator(male80points))
+      .style('stroke', '#fff')
+      .style('stroke-opacity', '0.3');
+      // .style('stroke-dasharray', '5,5');
 
 
     maleGraph.selectAll('rect')
@@ -131,26 +170,63 @@ function buildMenVsWomen() {
         return wScale(d.maleCount);
       })
       .style('fill', '#1861F8')
-      .on('mouseover', toolTip.show)
-      .on('mouseout', toolTip.hide);
+      .on("mouseover", function(d) {
+          toolTip.show(d);
+          d3.select(this)
+          .attr("stroke", "white")
+          .transition()
+          .duration(100);})
+      .on("mouseout", function(d) {
+          toolTip.hide(d);
+          d3.select(this)
+          .attr("stroke", "none")
+          .transition()
+          .duration(100);
+        });
 
     maleGraph.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + (topPadding) + ')')
       .call(maleAxis)
-      .style('stroke', '#E5F77D')
+      .style('stroke', '#fff')
       .attr('font-family', 'futura');
 
-    var lineGenerator = d3.line();
-    var points = [
-      [malewScale(50), topPadding],
-      [malewScale(50), 600]
+   var female20points = [
+      [femaleGraphX + wScale(20) - 20, topPadding],
+      [femaleGraphX + wScale(20) - 20, 600]
     ];
 
-    maleGraph.append('path')
-      .attr('d', lineGenerator(points))
-      .style('stroke', '#E5F77D')
-      .style('stroke-dasharray', '5,5');
+    var female40points = [
+      [femaleGraphX + wScale(40) - 20, topPadding],
+      [femaleGraphX + wScale(40) - 20, 600]
+    ];
+
+    var female60points = [
+      [femaleGraphX + wScale(60) - 20, topPadding],
+      [femaleGraphX + wScale(60) - 20, 600]
+    ];
+
+    var female80points = [
+      [femaleGraphX + wScale(80) - 20, topPadding],
+      [femaleGraphX + wScale(80) - 20, 600]
+    ];
+
+    femaleGraph.append('path')
+      .attr('d', lineGenerator(female20points))
+      .style('stroke', '#fff')
+      .style('stroke-opacity', '0.3');
+    femaleGraph.append('path')
+      .attr('d', lineGenerator(female40points))
+      .style('stroke', '#fff')
+      .style('stroke-opacity', '0.3');
+    femaleGraph.append('path')
+      .attr('d', lineGenerator(female60points))
+      .style('stroke', '#fff')
+      .style('stroke-opacity', '0.3');
+    femaleGraph.append('path')
+      .attr('d', lineGenerator(female80points))
+      .style('stroke', '#fff')
+      .style('stroke-opacity', '0.3');
 
     femaleGraph.selectAll('rect')
       .data(yearsDict)
@@ -168,27 +244,26 @@ function buildMenVsWomen() {
         return wScale(d.femaleCount);
       })
       .style('fill', '#9F1D5A')
-      .on('mouseover', toolTip.show)
-      .on('mouseout', toolTip.hide);
+      .on("mouseover", function(d) {
+          toolTip.show(d);
+          d3.select(this)
+          .attr("stroke", "white")
+          .transition()
+          .duration(100);})
+      .on("mouseout", function(d) {
+          toolTip.hide(d);
+          d3.select(this)
+          .attr("stroke", "none")
+          .transition()
+          .duration(100);
+      });
 
     femaleGraph.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(400,' + (topPadding) + ')')
       .call(femaleAxis)
-      .style('stroke', '#E5F77D')
+      .style('stroke', '#fff')
       .attr('font-family', 'futura');
-
-    var points = [
-      [femaleGraphX + wScale(50) - 20, topPadding],
-      [femaleGraphX + wScale(50) - 20, 600]
-    ];
-
-    maleGraph.append('path')
-      .attr('d', lineGenerator(points))
-      .style('stroke', '#E5F77D')
-      .style('stroke-dasharray', '5,5');
-
-    console.log(yScale.bandwidth());
 
     var labels = yearsLabels.selectAll('text')
       .data(yearsDict)
@@ -202,7 +277,7 @@ function buildMenVsWomen() {
         return d.year;
       })
       .attr('font-size', 12)
-      .style('fill', '#E5F77D')
+      .style('fill', '#fff')
       .on('mouseover', toolTip.show)
       .on('mouseout', toolTip.hide);
 
@@ -213,14 +288,14 @@ function buildMenVsWomen() {
       .text('Actors')
       .attr('x', malewScale(50)-20)
       .attr('y', 20)
-      .style('fill', '#E5F77D');
+      .style('fill', '#fff');
 
     svg.append('text')
       .attr('font-size', 16)
       .text('Actresses')
       .attr('x', femaleGraphX + wScale(50) - 50)
       .attr('y', 20)
-      .style('fill', '#E5F77D');
+      .style('fill', '#fff');
 
   })
 }
