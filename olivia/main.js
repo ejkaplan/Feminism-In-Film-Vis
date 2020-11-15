@@ -165,7 +165,7 @@ function buildFemaleCastBars() {
       .append('path')
       .attr('class', 'line-plot')
       .attr('d', lineInterpolate)
-      .style('stroke', '#E5F77D')
+      .style('stroke', '#171717')
 
       .style('stroke-width', 2)
       .attr('fill', 'none');
