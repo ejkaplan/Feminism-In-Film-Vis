@@ -1,38 +1,33 @@
 
 .axis .tick text {
-/*  font-family: Futura, sans-serif;*/
   font-size: 10px;
   font-style: normal;
- /* font-weight: 100;
-  letter-spacing: normal;
-  line-height: 24px;
-  text-transform: none;*/
-  color: #FFFFFF;
+  color: "black";
 }
 
 .axis .tick line {
-  stroke: white;
+  stroke: black;
 }
 
 .axis-label {
-  font-family: Futura, sans-serif;
+  font-family: Nunito Sans, sans-serif;
   font-size: 12px;
   font-style: normal;
-  font-weight: 100;
-  color: "white";
+  font-weight: bold;
+  color: "black";
 }
 
 .d3-tip {
   line-height: 1;
   padding: 6px;
-  background: rgba(240, 240, 240, 0.95);
+  background: #FFD6AD;
   color: #333;
   border-radius: 4px;
   font-size: 10px;
-  font-family: Futura;
+  font-family: Futura, sans-serif;
 }
 
-div.tooltip-percent { 
+/*div.tooltip-percent { 
     position: absolute;     
     text-align: left;     
     width: 30px;          
@@ -45,7 +40,7 @@ div.tooltip-percent {
     font-size: 10px;
     font-family: Futura;          
     pointer-events: none;
-}
+}*/
 
 div.tooltip-circle { 
     position: absolute;     
@@ -54,11 +49,11 @@ div.tooltip-circle {
     height: 15px; 
     line-height: 10px;
     padding: 6px;
-    background: rgba(240, 240, 240, 0.95);
+    background: #FFD6AD;
     color: #333;
     border-radius: 4px;
     font-size: 10px;
-    font-family: Futura;          
+    font-family: Nunito Sans, sans-serif;          
     pointer-events: none;
 }
 
@@ -77,7 +72,7 @@ div.tooltip-circle {
   font-size: 10px;
   width: 100%;
   line-height: 1;
-  color: rgba(240, 240, 240, 0.95);
+  color: #FFD6AD;
   content: "\25BC";
   position: absolute;
   text-align: center;
@@ -91,28 +86,28 @@ div.tooltip-circle {
 }
 
 .d3-tip h5{
-  font-family: Futura, sans-serif;
-  font-weight: 600;
+  font-family: Nunito Sans, sans-serif;
+  font-weight: 700;
   font-size: 10px;
   margin: 2px 10px 4px 2px;
 }
 
 .d3-tip thead td {
-  border-bottom: 1px solid #ccc;
-  font-family: Futura, sans-serif;
+  border-bottom: 1px solid #000;
+  font-family: Nunito Sans, sans-serif;
   font-weight: 100;
   font-size: 10px;
 }
 
 .d3-tip td {
-  font-family: Futura, sans-serif;
+  font-family: Nunito Sans, sans-serif;
   font-weight: 100;
   font-size: 10px;
   padding: 2px 10px 2px 2px;
 }
 
 .d3-tip thead tr {
-  font-family: Futura, sans-serif;
+  font-family: Nunito Sans, sans-serif;
   font-weight: 100;
   font-size: 10px;
   padding-top: 10px;

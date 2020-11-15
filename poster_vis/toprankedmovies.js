@@ -21,7 +21,7 @@ function buildTopRanked() {
 	svg.append("rect")
 	    .attr("width", "100%")
 	    .attr("height", "100%")
-	    .attr("fill", "#171717");
+	    .attr("fill", "#FFF4E9");
 
 	  // Get layout parameters
 	var svgWidth = +svg.attr('width');
@@ -78,7 +78,7 @@ function buildTopRanked() {
 	// 		.attr("dy", "1.3em")
 
 
-	d3.csv("../data/FeminismMoviesWave3.csv", dataPreprocessor).then(function(moviedata) {
+	d3.csv("../data/FeminismMoviesWave4.csv", dataPreprocessor).then(function(moviedata) {
 	    console.log(moviedata);
 
 	    // X SCALE
@@ -131,7 +131,7 @@ function buildTopRanked() {
 	      .call(yAxisPercent)
 	      .call(g => g.select(".domain").remove())
 	      .call(g => g.selectAll(".tick line")
-	        .attr("stroke", "white")
+	        .attr("stroke", "black")
 	        .attr("stroke-opacity", 0.5)
 	        .attr("stroke-dasharray", "2,2"))
 	      .call(g => g.selectAll(".tick text")
@@ -153,7 +153,7 @@ function buildTopRanked() {
 	      // .attr("stroke", "white")
 	      .call(g => g.select(".domain").remove())
 	      .call(g => g.selectAll(".tick:not(:first-of-type) line")
-	        .attr("stroke", "white")
+	        .attr("stroke", "black")
 	        .attr("stroke-opacity", 0.5)
 	        .attr("stroke-dasharray", "2,2"))
 	      .call(g => g.selectAll(".tick text")
@@ -166,21 +166,21 @@ function buildTopRanked() {
 	      .text('Female Cast and Crew (%)')
 	      .attr('transform', 'translate (70, 230), rotate (-90)')
 	      .transition().duration(800)
-	      .attr("fill", "white");
+	      .attr("fill", "black");
 
 	    svg.append('text')
 	      .attr('class', 'axis-label')
 	      .text('Revenue of Film (in USD)')
 	      .attr('transform', 'translate (70, 480), rotate (-90)')
 	      .transition().duration(800)
-	      .attr("fill", "white");
+	      .attr("fill", "black");
 
 	    svg.append('text')
 	      .attr('class', 'axis-label')
 	      .text('Top 10 Ranked Feminist Films in the Wave')
-	      .attr('transform', 'translate (630, 585)')
+	      .attr('transform', 'translate (620, 575)')
 	      .transition().duration(800)
-	      .attr("fill", "white")
+	      .attr("fill", "black")
 
 	    // Creates array of posters using ForLoop
 	    var imgLinks = [];
@@ -237,7 +237,7 @@ function buildTopRanked() {
 	      })
 	      .attr("width", imageWidth)
 	      .attr("height", imageHeight)
-	      .attr('fill', 'black')
+	      .attr('fill', 'white')
 	      .attr('fill-opacity', 0.8)
 	      .on('mouseover', function(d, i) {
 	        toolTipPoster.show(d);
@@ -266,12 +266,12 @@ function buildTopRanked() {
 	      .attr("height", function(d) {
 	        return (5 + Number(d['percent_fem']));
 	      })
-	      .attr('fill', '#9F1D5A')
-	      .attr("stroke", "black")
+	      .attr('fill', '#A93F55')
+	      .attr("stroke", "#A93F55")
 	      .attr('fill-opacity', 0.8)
 	      .on("mouseover", function(d) {
 	        d3.select(this)
-	          .attr("stroke", "white")
+	          .attr("stroke-width", 4)
 	          .transition()
 	          .duration(100)
 	          .attr("fill-opacity", 1.0);
@@ -283,7 +283,7 @@ function buildTopRanked() {
 	      })
 	      .on("mouseout", function(d) {
 	        d3.select(this)
-	          .attr("stroke", "black")
+	          .attr("stroke-width", 0)
 	          .transition()
 	          .duration(100)
 	          .attr("fill-opacity", 0.8);
@@ -324,11 +324,11 @@ function buildTopRanked() {
 	        return (yScaleRevenue(d["revenue"])) + 285;
 	      })
 	      .attr("r", 7)
-	      .attr("fill", "#9F1D5A")
-	      .attr("stroke", "black")
+	      .attr("fill", "#A93F55")
+	      .attr("stroke", "#A93F55")
 	      .on("mouseover", function(d) {
 	        d3.select(this)
-	          .attr("stroke", "white");
+	          .attr("stroke-width", 4);
 	        toolTipCircle
 	          .transition()
 	          .duration(100)
@@ -343,7 +343,7 @@ function buildTopRanked() {
 	      })
 	      .on("mouseout", function(d) {
 	        d3.select(this)
-	          .attr("stroke", "black");
+	          .attr("stroke-width", 0);
 	        toolTipCircle
 	          .transition()
 	          .duration(100)
