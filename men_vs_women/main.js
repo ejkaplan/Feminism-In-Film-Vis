@@ -1,17 +1,42 @@
 function buildMenVsWomen() {
 
   //Assign these variables based on scrollytelling
+
+  var era = "1";
+  var start = 1920;
+  var end = 1959;
+
+  function setWave(wave) {
+    if (wave == "2") {
+      era = "2";
+      start = 1960;
+      end = 1980;
+    }
+
+    else if (wave == "3") {
+      era = "3";
+      start = 1981;
+      end = 2010;
+    }
+
+    else if (wave == "4") {
+      era = "4";
+      start = 2011;
+      end = 2017;
+    }
+
+  }
   // var era = "1";
   // var start = 1920;
   // var end = 1959;
 
 
-  var era = "2";
-  var start = 1960;
-  var end = 1980;
+  // var era = "2";
+  // var start = 1960;
+  // var end = 1980;
 
   // var era = "3";
-  // var start = 19 81;
+  // var start = 1981;
   // var end = 2010;
 
   // var era = "4";
