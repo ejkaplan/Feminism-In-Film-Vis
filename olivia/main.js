@@ -1,15 +1,34 @@
 function buildFemaleCastBars() {
 
- var waveTimePeriods = [
-    { name: "Between the First and Second Waves", id: "first", start: 1920, end: 1959},
-    { name: "The Second Wave", id: "second", start: 1960, end: 1980},
-    { name: "The Third Wave", id: "third", start: 1981, end: 2010},
-    { name: "The Fourth Wave", id: "fourth", start: 2011, end: 2017},
-];
+  var waveTimePeriods = [{
+      name: "Between the First and Second Waves",
+      id: "first",
+      start: 1920,
+      end: 1959
+    },
+    {
+      name: "The Second Wave",
+      id: "second",
+      start: 1960,
+      end: 1980
+    },
+    {
+      name: "The Third Wave",
+      id: "third",
+      start: 1981,
+      end: 2010
+    },
+    {
+      name: "The Fourth Wave",
+      id: "fourth",
+      start: 2011,
+      end: 2017
+    },
+  ];
 
 
 
-d3.csv('movies_avgwave1.csv').then(function(dataset) {
+  d3.csv('movies_avgwave1.csv').then(function(dataset) {
 
 console.log(dataset);
 
@@ -198,9 +217,8 @@ svg.append('text')
 svg.call(toolTip);
 
 
+  });
 
-
-});
 }
 
 buildFemaleCastBars();
