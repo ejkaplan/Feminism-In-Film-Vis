@@ -6,17 +6,17 @@ function buildMenVsWomen() {
   // var end = 1959;
 
 
-  // var era = "2";
-  // var start = 1960;
-  // var end = 1980;
+  var era = "2";
+  var start = 1960;
+  var end = 1980;
 
   // var era = "3";
-  // var start = 1981;
+  // var start = 19 81;
   // var end = 2010;
 
-  var era = "4";
-  var start = 2011;
-  var end = 2017;
+  // var era = "4";
+  // var start = 2011;
+  // var end = 2017;
 
   //-------------------
 
@@ -88,6 +88,7 @@ function buildMenVsWomen() {
 
     var toolTip = d3.tip()
       .attr("class", "d3-tip")
+      .attr('fill', '#FFD6AD')
       .offset([-12, 0])
       .html(function(d, i) {
         return "<table><thead><tr><td>"+d.year+"</td></tr></thead>" +
@@ -136,23 +137,22 @@ function buildMenVsWomen() {
 
     maleGraph.append('path')
       .attr('d', lineGenerator(male20points))
-      .style('stroke', '#fff')
+      .style('stroke','black')
       .style('stroke-opacity', '0.3');
     maleGraph.append('path')
       .attr('d', lineGenerator(male40points))
-      .style('stroke', '#fff')
+      .style('stroke','black')
       .style('stroke-opacity', '0.3');
     maleGraph.append('path')
       .attr('d', lineGenerator(male60points))
-      .style('stroke', '#fff')
+      .style('stroke','black')
       .style('stroke-opacity', '0.3');
     maleGraph.append('path')
       .attr('d', lineGenerator(male80points))
-      .style('stroke', '#fff')
+      .style('stroke','black')
       .style('stroke-opacity', '0.3');
-      // .style('stroke-dasharray', '5,5');
 
-
+//Draw male graph
     maleGraph.selectAll('rect')
       .data(yearsDict)
       .enter()
@@ -170,11 +170,12 @@ function buildMenVsWomen() {
       .attr('width', function(d) {
         return wScale(d.maleCount);
       })
-      .style('fill', '#1861F8')
+      .style('fill', '#366C81')
       .on("mouseover", function(d) {
           toolTip.show(d);
           d3.select(this)
-          .attr("stroke", "white")
+          .attr("stroke", "#366C81")
+          .attr("stroke-width", '2')
           .transition()
           .duration(100);})
       .on("mouseout", function(d) {
@@ -185,11 +186,12 @@ function buildMenVsWomen() {
           .duration(100);
         });
 
+//Male axis
     maleGraph.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + (topPadding) + ')')
       .call(maleAxis)
-      .style('stroke', '#fff')
+      .style('stroke', 'black')
       .attr('font-family', 'futura');
 
    var female20points = [
@@ -214,21 +216,22 @@ function buildMenVsWomen() {
 
     femaleGraph.append('path')
       .attr('d', lineGenerator(female20points))
-      .style('stroke', '#fff')
+      .style('stroke', 'black')
       .style('stroke-opacity', '0.3');
     femaleGraph.append('path')
       .attr('d', lineGenerator(female40points))
-      .style('stroke', '#fff')
+      .style('stroke', 'black')
       .style('stroke-opacity', '0.3');
     femaleGraph.append('path')
       .attr('d', lineGenerator(female60points))
-      .style('stroke', '#fff')
+      .style('stroke', 'black')
       .style('stroke-opacity', '0.3');
     femaleGraph.append('path')
       .attr('d', lineGenerator(female80points))
-      .style('stroke', '#fff')
+      .style('stroke', 'black')
       .style('stroke-opacity', '0.3');
 
+//Draw female graph
     femaleGraph.selectAll('rect')
       .data(yearsDict)
       .enter()
@@ -244,11 +247,12 @@ function buildMenVsWomen() {
       .attr('width', function(d) {
         return wScale(d.femaleCount);
       })
-      .style('fill', '#9F1D5A')
+      .style('fill', '#A93F55')
       .on("mouseover", function(d) {
           toolTip.show(d);
           d3.select(this)
-          .attr("stroke", "white")
+          .attr("stroke", "#A93F55")
+          .attr("stroke-width", '2')
           .transition()
           .duration(100);})
       .on("mouseout", function(d) {
@@ -259,13 +263,15 @@ function buildMenVsWomen() {
           .duration(100);
       });
 
+//Female Axis
     femaleGraph.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(400,' + (topPadding) + ')')
       .call(femaleAxis)
-      .style('stroke', '#fff')
-      .attr('font-family', 'futura');
+      .style('stroke', 'black')
+      .attr('font-family', 'Futura');
 
+//Vertical Year Labels
     var labels = yearsLabels.selectAll('text')
       .data(yearsDict)
       .enter()
@@ -278,25 +284,27 @@ function buildMenVsWomen() {
         return d.year;
       })
       .attr('font-size', 12)
-      .style('fill', '#fff')
+      .style('fill', 'black')
       .on('mouseover', toolTip.show)
       .on('mouseout', toolTip.hide);
 
     svg.call(toolTip);
+
+//Axis labels
 
     svg.append('text')
       .attr('font-size', 16)
       .text('Actors')
       .attr('x', malewScale(50)-20)
       .attr('y', 20)
-      .style('fill', '#fff');
+      .style('fill', 'black');
 
     svg.append('text')
       .attr('font-size', 16)
       .text('Actresses')
       .attr('x', femaleGraphX + wScale(50) - 50)
       .attr('y', 20)
-      .style('fill', '#fff');
+      .style('fill', 'black');
 
   })
 }
