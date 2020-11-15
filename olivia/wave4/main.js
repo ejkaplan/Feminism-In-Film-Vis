@@ -74,7 +74,7 @@ var toolTip = d3.tip()
 
 
 
-var svg = d3.select('svg');
+var svg = d3.select('#olivia_div4');
 
 
 
