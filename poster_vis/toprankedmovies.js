@@ -116,11 +116,12 @@ function buildTopRanked() {
 	    // console.log(maxRev);
 
 	    var yScaleRevenue = d3.scaleLinear()
-	      .domain([0, (maxRev + (maxRev / 10))])
-	      .range([(imageHeight * 1.5), 0]);
+	      .domain([0, (maxRev + (maxRev / 6))])
+	      .range([(imageHeight * 1.3), 0]);
 
 	    var yAxisRevenue = d3.axisLeft(yScaleRevenue)
 	      .tickSize(-(chartWidth + 0)) //(padding.r/2)
+	      .ticks(5)
 	      .tickFormat(d3.formatPrefix("$0.1", 1e6));
 
 	    //DRAW AXES
@@ -135,12 +136,12 @@ function buildTopRanked() {
 	        .attr("stroke-opacity", 0.5)
 	        .attr("stroke-dasharray", "2,2"))
 	      .call(g => g.selectAll(".tick text")
-	        .attr("x", 30)
+	        .attr("x", 24)
 	        .attr("y", -10));
 
 	    svg.append('g')
 	      .attr('class', 'x axis')
-	      .attr('transform', 'translate(130, 538)') //200 xaxis = 90 y axis for y coord.
+	      .attr('transform', 'translate(130, 505)') //200 xaxis = 90 y axis for y coord.
 	      // .transition().duration(800)
 	      .call(xAxisCustom)
 	      .call(g => g.select(".domain").remove());
@@ -157,7 +158,7 @@ function buildTopRanked() {
 	        .attr("stroke-opacity", 0.5)
 	        .attr("stroke-dasharray", "2,2"))
 	      .call(g => g.selectAll(".tick text")
-	        .attr("x", 30)
+	        .attr("x", 44)
 	        .attr("y", -10));
 
 	    // DRAW AXIS TEXT
@@ -171,14 +172,14 @@ function buildTopRanked() {
 	    svg.append('text')
 	      .attr('class', 'axis-label')
 	      .text('Revenue of Film (in USD)')
-	      .attr('transform', 'translate (70, 480), rotate (-90)')
+	      .attr('transform', 'translate (70, 460), rotate (-90)')
 	      .transition().duration(800)
 	      .attr("fill", "black");
 
 	    svg.append('text')
 	      .attr('class', 'axis-label')
-	      .text('Top 10 Ranked Feminist Films in the Wave')
-	      .attr('transform', 'translate (620, 575)')
+	      .text('Top 10 Ranked Films in the Wave')
+	      .attr('transform', 'translate (640, 545)')
 	      .transition().duration(800)
 	      .attr("fill", "black")
 
