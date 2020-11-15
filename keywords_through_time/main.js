@@ -30,6 +30,7 @@ function buildKeywords() {
     year = newYear;
     updateChart();
   }
+  buildKeywords.changeYear = changeYear;
 
   d3.json('../data/top10_keywords_by_year.json').then(function(dataset) {
     years = dataset;
