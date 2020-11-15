@@ -56,15 +56,19 @@ var averageScale = d3.scaleLinear()
 
 
 var lineInterpolate = d3.line()
-    .x(function(d) { console.log(xScale(d.Year)); return 67 + xScale(d.Year); })
-    .y(function(d) { console.log(averageScale(d.avg_female_cast)); return  60 + averageScale(d.avg_female_cast) });
+    .x(function(d) { 
+      // console.log(xScale(d.Year)); 
+      return 67 + xScale(d.Year); })
+    .y(function(d) { 
+      // console.log(averageScale(d.avg_female_cast)); 
+      return  60 + averageScale(d.avg_female_cast) });
 
 var toolTip = d3.tip()
         .attr("class", "d3-tip")
         .offset([-12, 0])
         .html(function(d, i) {
-            console.log(d);
-            console.log(i);
+            // console.log(d);
+            // console.log(i);
             return "<table><thead><tr><td>Year</td><td>Count of Female Cast</td></tr></thead>"
              + "<tbody><tr><td>"+d['Year']+"</td><td>"+d['sum_female_cast']+"</td></tr></tbody>"
              + "<thead><tr><td></td><td colspan='2'>Average</td></tr></thead>"

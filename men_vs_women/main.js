@@ -75,7 +75,8 @@ function buildMenVsWomen() {
 
 
 
-  d3.csv('./data/movies.csv').then(function(dataset) {
+  d3.csv('../data/movies.csv').then(function(dataset) {
+    
 
     var waveMovies = dataset.filter(function(d) {
       return d['wave'] == era;

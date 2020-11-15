@@ -15,6 +15,23 @@ function buildTopRanked() {
 	    };
 	}
 
+	var filePath = "../data/FeminismMoviesWave1.csv";
+
+	function setWave (wave) {
+
+		if (wave == "2") {
+			filePath = "../data/FeminismMoviesWave2.csv"
+		}
+		else if (wave == "3") {
+			filePath = "../data/FeminismMoviesWave3.csv"
+		}
+		else if (wave == "4") {
+			filePath = "../data/FeminismMoviesWave4.csv"
+		}
+
+	}	
+
+
 	// **** Your JavaScript code goes here ****
 	var svg = d3.select('#hannah');
 
@@ -78,7 +95,7 @@ function buildTopRanked() {
 	// 		.attr("dy", "1.3em")
 
 
-	d3.csv("../data/FeminismMoviesWave4.csv", dataPreprocessor).then(function(moviedata) {
+	d3.csv(filePath, dataPreprocessor).then(function(moviedata) {
 	    console.log(moviedata);
 
 	    // X SCALE

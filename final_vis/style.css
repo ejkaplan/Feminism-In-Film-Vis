@@ -21,7 +21,11 @@ h3 {
 	font-size: 30px;
 	font-style: normal;
 	color: #171717;
-	text-align: center
+	text-align: center;
+	position: sticky;
+	line-height: 100px;
+	top: 0;
+	width: 100%;
 }
 
 h4 {
@@ -32,6 +36,7 @@ h4 {
 	color: #171717;
 	text-align: left;
 	line-height: 28px;
+
 }
 
 /* Centered text */
@@ -44,21 +49,26 @@ h4 {
 
 .container {
 	margin: 0 auto;
-	width: 650px;
 	border: none !important;
 }
 
-.child{
+.child {
 	margin: 0 auto;
 	width: 650px;
 	border: none !important;
 }
 
-.olivia_div {
+/*.vis_container {
+	margin-left: -750;
+	width: 1300px;
+}*/
+
+
+/*.olivia_div {
 	transform: translate(50px, 100px);
 	transition-duration: 5s;
 	transition-timing-function: ease-in;
-}
+}*/
 
 /*.inline-block-child{
 	display:inline-block;
