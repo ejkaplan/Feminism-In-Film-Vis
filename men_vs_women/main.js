@@ -46,7 +46,7 @@ function buildMenVsWomen() {
     .attr('x', 385)
     .attr('y', topPadding)
     .style('fill', '#E5F77D')
-    .attr('font-family', 'futura');
+    .attr('font-family', 'Nunito Sans');
 
 
 
@@ -138,18 +138,22 @@ function buildMenVsWomen() {
     maleGraph.append('path')
       .attr('d', lineGenerator(male20points))
       .style('stroke','black')
+      .style("stroke-dasharray", ("3, 3")) 
       .style('stroke-opacity', '0.3');
     maleGraph.append('path')
       .attr('d', lineGenerator(male40points))
       .style('stroke','black')
+      .style("stroke-dasharray", ("3, 3")) 
       .style('stroke-opacity', '0.3');
     maleGraph.append('path')
       .attr('d', lineGenerator(male60points))
       .style('stroke','black')
+      .style("stroke-dasharray", ("3, 3")) 
       .style('stroke-opacity', '0.3');
     maleGraph.append('path')
       .attr('d', lineGenerator(male80points))
       .style('stroke','black')
+      .style("stroke-dasharray", ("3, 3")) 
       .style('stroke-opacity', '0.3');
 
 //Draw male graph
@@ -192,7 +196,7 @@ function buildMenVsWomen() {
       .attr('transform', 'translate(0,' + (topPadding) + ')')
       .call(maleAxis)
       .style('stroke', 'black')
-      .attr('font-family', 'futura');
+      .attr('font-family', 'Nunito Sans');
 
    var female20points = [
       [femaleGraphX + wScale(20) - 20, topPadding],
@@ -217,18 +221,22 @@ function buildMenVsWomen() {
     femaleGraph.append('path')
       .attr('d', lineGenerator(female20points))
       .style('stroke', 'black')
+      .style("stroke-dasharray", ("3, 3")) 
       .style('stroke-opacity', '0.3');
     femaleGraph.append('path')
       .attr('d', lineGenerator(female40points))
       .style('stroke', 'black')
+      .style("stroke-dasharray", ("3, 3")) 
       .style('stroke-opacity', '0.3');
     femaleGraph.append('path')
       .attr('d', lineGenerator(female60points))
       .style('stroke', 'black')
+      .style("stroke-dasharray", ("3, 3")) 
       .style('stroke-opacity', '0.3');
     femaleGraph.append('path')
       .attr('d', lineGenerator(female80points))
       .style('stroke', 'black')
+      .style("stroke-dasharray", ("3, 3")) 
       .style('stroke-opacity', '0.3');
 
 //Draw female graph
@@ -269,7 +277,7 @@ function buildMenVsWomen() {
       .attr('transform', 'translate(400,' + (topPadding) + ')')
       .call(femaleAxis)
       .style('stroke', 'black')
-      .attr('font-family', 'Futura');
+      .attr('font-family', 'Nunito Sans');
 
 //Vertical Year Labels
     var labels = yearsLabels.selectAll('text')
@@ -297,6 +305,7 @@ function buildMenVsWomen() {
       .text('Actors')
       .attr('x', malewScale(50)-20)
       .attr('y', 20)
+      .style('font-family', 'Nunito Sans')
       .style('fill', 'black');
 
     svg.append('text')
@@ -304,6 +313,7 @@ function buildMenVsWomen() {
       .text('Actresses')
       .attr('x', femaleGraphX + wScale(50) - 50)
       .attr('y', 20)
+      .style('font-family', 'Nunito Sans')
       .style('fill', 'black');
 
   })
