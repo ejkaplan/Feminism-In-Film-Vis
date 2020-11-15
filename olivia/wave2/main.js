@@ -213,7 +213,8 @@ svg.append('text')
 
 svg.call(toolTip);
 
+  });
 
+}
 
-
-});
+buildFemaleCastBars();
