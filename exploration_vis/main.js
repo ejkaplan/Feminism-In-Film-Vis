@@ -197,9 +197,8 @@ function buildHeatMap() {
     var maxCount = d3.max(grid.map(x => x.count));
     colorScale.domain([0, maxCount]);
     // Heatmap
-    var cells = chartG.selectAll('.cell')
+    var cells = chartG.selectAll('.cell rect')
       .data(grid)
-    cells.selectAll('rect')
       .transition()
       .duration(200)
       .style('fill', d => colorScale(d.count));
@@ -217,6 +216,7 @@ function buildHeatMap() {
     if (update)
       updateMovies();
   }
+  buildHeatMap.changeYearLow = changeYearLow;
 
   function changeYearHigh(year, update = true) {
     let label = document.getElementById('year-high-label');
@@ -230,6 +230,7 @@ function buildHeatMap() {
     if (update)
       updateMovies();
   }
+  buildHeatMap.changeYearHigh = changeYearHigh;
 }
 
 buildHeatMap();

@@ -9,14 +9,16 @@
 
 <body>
   <div class="container">
-    <svg id="heatmap_svg" class="heatmap" width="700" height="700" style="border: 1px solid #777;" />
-    <div class="tagfilter" />
-    <div class="controls-container">
-      <label for="year-low" id="year-low-label">Year Low: 1874</label>
-      <input class="date-slider" id="year-low" type="range" min="1920" max="2017" step="1" value="1920" oninput="changeYearLow(this.value)">
-      <label for="year-high" id="year-high-label">Year High: 2017</label>
-      <input class="date-slider" id="year-high" type="range" min="1920" max="2017" step="1" value="2017" oninput="changeYearHigh(this.value)">
+    <div id=leftcol>
+      <svg id="heatmap_svg" class="heatmap" width="700" height="700" style="border: 1px solid #777;" />
+      <div class="controls-container">
+        <label for="year-low" id="year-low-label">Year Low: 1874</label>
+        <input class="date-slider" id="year-low" type="range" min="1920" max="2017" step="1" value="1920" oninput="buildHeatMap.changeYearLow(this.value)">
+        <label for="year-high" id="year-high-label">Year High: 2017</label>
+        <input class="date-slider" id="year-high" type="range" min="1920" max="2017" step="1" value="2017" oninput="buildHeatMap.changeYearHigh(this.value)">
+      </div>
     </div>
+    <div class="tagfilter" />
   </div>
 </body>
 

@@ -17,24 +17,25 @@
 <body style="background-color: #FFF4E9">
   <img src="male_film_set_cropped.jpg" alt="photo" object-fit="cover" width="100%">
 
-  <div id="intro" class="container"> 
+  <div id="intro" class="container">
+    <br>
+    <br>
+    <h4> Historically, women have been left in the shadows, their stories and labor hidden behind their male counterparts.
       <br>
       <br>
-      <h4> Historically, women have been left in the shadows, their stories and labor hidden behind their male counterparts. 
+      Through this visualization, we see that in film, it is no different. Portrayal of social movements in mass median shapes and is shaped by popular attitude towards those movements.
       <br>
       <br>
-      Through this visualization, we see that in film, it is no different. Portrayal of social movements in mass median shapes and is shaped by popular attitude towards those movements. 
+      Visualized data about movies lends insight on how culture and media cross-influence each other. Through the lens of feminist waves beginning in the 19th century, all the way to 2017, we see how women’s place in movies has metamorphised,
+      sculpted by the women fighting for equality within each wave.
       <br>
       <br>
-      Visualized data about movies lends insight on how culture and media cross-influence each other. Through the lens of feminist waves beginning in the 19th century, all the way to 2017, we see how women’s place in movies has metamorphised, sculpted by the women fighting for equality within each wave. 
-      <br>
-      <br>
-      Disclaimer: While this visualization is rooted in feminism and women’s movements, the dataset classifies gender as two distinct genders represented in a binary fashion. We want to acknowledge that gender is a spectrum and 
-      </h4>
+      Disclaimer: While this visualization is rooted in feminism and women’s movements, the dataset classifies gender as two distinct genders represented in a binary fashion. We want to acknowledge that gender is a spectrum and
+    </h4>
   </div>
 
   <h3>Feminist Wave 1: 19th Century - Early 20th Century</h3>
-  
+
   <div id="oliva_div">
     <svg id="olivia" width="1380" height="550" style="background-color: #FFF4E9;" />
   </div>
@@ -57,14 +58,16 @@
   </div>
   Placeholder Text 5: The Placeholdening
   <div class="container">
-    <svg id="heatmap_svg" class="heatmap" width="700" height="700" style="border: 1px solid #777;" />
-    <div class="tagfilter" />
-    <div class="controls-container">
-      <label for="year-low" id="year-low-label">Year Low: 1874</label>
-      <input class="date-slider" id="year-low" type="range" min="1920" max="2017" step="1" value="1920" oninput="changeYearLow(this.value)">
-      <label for="year-high" id="year-high-label">Year High: 2017</label>
-      <input class="date-slider" id="year-high" type="range" min="1920" max="2017" step="1" value="2017" oninput="changeYearHigh(this.value)">
+    <div id=leftcol>
+      <svg id="heatmap_svg" class="heatmap" width="700" height="700" style="border: 1px solid #777;" />
+      <div class="controls-container">
+        <label for="year-low" id="year-low-label">Year Low: 1874</label>
+        <input class="date-slider" id="year-low" type="range" min="1920" max="2017" step="1" value="1920" oninput="buildHeatMap.changeYearLow(this.value)">
+        <label for="year-high" id="year-high-label">Year High: 2017</label>
+        <input class="date-slider" id="year-high" type="range" min="1920" max="2017" step="1" value="2017" oninput="buildHeatMap.changeYearHigh(this.value)">
+      </div>
     </div>
+    <div class="tagfilter" />
   </div>
 </body>
 
