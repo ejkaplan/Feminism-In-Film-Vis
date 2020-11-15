@@ -30,7 +30,6 @@ function buildFemaleCastBars() {
 
   d3.csv('movies_avgwave1.csv').then(function(dataset) {
 
-console.log(dataset);
 
 
 var extent = d3.extent(dataset, function(d) {
@@ -63,8 +62,7 @@ var toolTip = d3.tip()
         .attr("class", "d3-tip")
         .offset([-12, 0])
         .html(function(d, i) {
-            console.log(d);
-            console.log(i);
+            
             return "<table><thead><tr><td>Year</td><td>Count of Female Cast</td></tr></thead>"
              + "<tbody><tr><td>"+d['Year']+"</td><td>"+d['sum_female_cast']+"</td></tr></tbody>"
              + "<thead><tr><td></td><td colspan='2'>Average</td></tr></thead>"
