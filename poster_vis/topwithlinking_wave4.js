@@ -57,21 +57,6 @@ function buildTopRanked4() {
   function drawMovies(moviedata) {
     console.log(moviedata);
 
-    //Grabs highest array from both data sets
-    var maxArray = [];
-    var max1 = d3.max(moviedata, function(d) {
-      return d["revenue"];
-    });
-    maxArray.push(max1);
-    var max2 = d3.max(moviedata, function(d) {
-      return d["alt_revenue"];
-    });
-    maxArray.push(max2);
-    // console.log(maxArray);
-
-    var maxRev = d3.max(maxArray);
-    // console.log(maxRev);
-
     // X SCALE
     var xAxisLabels = [];
     for (let i = 0; i < 10; i++) {
@@ -101,9 +86,22 @@ function buildTopRanked4() {
       .tickFormat((d, i) => yTickLabels[i]);
 
     //Y SCALES, BOTTOM GRAPH
-    var maxRev = d3.max(moviedata, function(d) {
+    //Grabs highest array from both data sets
+    var maxArray = [];
+    var max1 = d3.max(moviedata, function(d) {
       return d["revenue"];
     });
+    maxArray.push(max1);
+    var max2 = d3.max(moviedata, function(d) {
+      return d["alt_revenue"];
+    });
+    maxArray.push(max2);
+    // console.log(maxArray);
+    var maxRev = d3.max(maxArray);
+
+    // var maxRev = d3.max(moviedata, function(d) {
+    //   return d["revenue"];
+    // });
     // console.log(maxRev);
 
     var yScaleRevenue = d3.scaleLinear()
@@ -260,7 +258,6 @@ function buildTopRanked4() {
       .attr("height", function(d) {
         return (5 + Number(d['percent_fem']));
       })
-      // .attr('fill', '#A93F55')
       .attr("fill", function (d) {
         if (selectOption == "all") {
           console.log("inOrange");
@@ -278,11 +275,6 @@ function buildTopRanked4() {
           .transition()
           .duration(100)
           .attr("fill-opacity", 1.0);
-        // d3.selectAll("circle")
-        //     .attr("fill", function () {
-        //         if
-        //     })
-        // do similar thing on mouseout
       })
       .on("mouseout", function(d) {
         d3.select(this)
@@ -337,11 +329,19 @@ function buildTopRanked4() {
           return "#A93F55";
         }
       })
-      // .attr("stroke", "#A93F55")
+      .attr("stroke", function (d) {
+        if (selectOption == "all") {
+          console.log("inOrange");
+          return "#FF8509";
+        }
+        else {
+          return "#A93F55";
+        }
+      })
       .on("mouseover", function(d) {
         d3.select(this)
           .attr("stroke-width", 4);
-        other_circles.style("opacity", 1.0);
+        other_circles.style("opacity", 0.6);
         toolTipCircle
           .transition()
           .duration(100)
@@ -390,8 +390,6 @@ function buildTopRanked4() {
           return (yScaleRevenue(d["alt_revenue"])) + 285;
       })
       .attr("r", 7)
-      // .attr("fill", "#366C81")
-      // .attr("stroke", "#366C81")
       .attr("opacity", 0.0)
       .attr("fill", function (d) {
         if (selectOption != "all") {
@@ -424,17 +422,21 @@ function buildTopRanked4() {
     });
     maxArray.push(max2);
     // console.log(maxArray);
-
     var maxRev = d3.max(maxArray);
+
+    // var maxRev = d3.max(moviedata, function(d) {
+    //   return d["revenue"];
+    // });
     // console.log(maxRev);
 
     var yScaleRevenue = d3.scaleLinear()
       .domain([0, (maxRev + (maxRev / 6))])
       .range([(imageHeight * 1.3), 0]);
-    // var yAxisRevenue = d3.axisLeft(yScaleRevenue)
-    //   .tickSize(-(chartWidth + 0)) //(padding.r/2)
-    //   .ticks(5)
-    //   .tickFormat(d3.formatPrefix("$0.1", 1e6));
+
+    var yAxisRevenue = d3.axisLeft(yScaleRevenue)
+      .tickSize(-(chartWidth + 0)) //(padding.r/2)
+      .ticks(5)
+      .tickFormat(d3.formatPrefix("$0.1", 1e6));
 
     // svg.selectAll('.yAxisRevenue')
     //   .transition()
@@ -487,7 +489,6 @@ function buildTopRanked4() {
           return "#A93F55";
         }
       })
-
     svg.selectAll('.barlabel')
       .data(moviedata)
       .transition()
@@ -498,6 +499,7 @@ function buildTopRanked4() {
       .text(function(d) {
         return (Number(d['percent_fem'])) + "%";
       })
+
     svg.selectAll('circle')
       .data(moviedata)
       .transition()
@@ -512,22 +514,31 @@ function buildTopRanked4() {
         else {
           return "#A93F55";
         }
-      });
-    svg.selectAll('other_circle')
-      .data(moviedata)
-      .transition()
-      .duration(300)
-      .attr("cy", function(d) {
-        return yScaleRevenue(d["revenue"]) + 285;
       })
-      .attr("fill", function (d) {
+      .attr("stroke", function (d) {
         if (selectOption == "all") {
+          console.log("inOrange");
           return "#FF8509";
         }
         else {
           return "#A93F55";
         }
-      });    
+      });
+      svg.selectAll('other_circle')
+      .data(moviedata)
+      .transition()
+      .duration(300)
+      .attr("cy", function(d) {
+        return yScaleRevenue(d["alt_revenue"]) + 285; 
+      })
+      .attr("fill", function (d) {
+        if (selectOption == "all") {
+          return "#FF8509"; //orange
+        }
+        else {
+          return "#A93F55";
+        }
+      })  
   }
   buildTopRanked4.updateData = updateData;
 
