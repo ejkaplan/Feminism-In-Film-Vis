@@ -17,7 +17,7 @@ function buildTopRanked() {
 	}
 
 	// **** Your JavaScript code goes here ****
-	var svg = d3.select('#hannah_div1');
+	var svg = d3.select('#hannah_div4');
 
 	svg.append("rect")
 	    .attr("width", "100%")
@@ -79,7 +79,7 @@ function buildTopRanked() {
 	// 		.attr("dy", "1.3em")
 
 
-	d3.csv("../data/FeminismMoviesWave1.csv", dataPreprocessor).then(function(moviedata) {
+	d3.csv("../data/FeminismMoviesWave4.csv", dataPreprocessor).then(function(moviedata) {
 	    // console.log(moviedata);
 
 	    // X SCALE

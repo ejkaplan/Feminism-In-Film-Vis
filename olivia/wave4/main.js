@@ -40,7 +40,7 @@ var extent = d3.extent(dataset, function(d) {
 var xScale = d3.scaleBand()
     .domain([2011, 2012, 2013, 2014, 2015, 2016, 2017])
     // .domain([1920, 1959])
-    .rangeRound([20,1220])
+    .rangeRound([20,450])
     .padding(0.5);
      
 
@@ -65,9 +65,9 @@ var toolTip = d3.tip()
         .html(function(d, i) {
             console.log(d);
             console.log(i);
-            return "<table><thead><tr><td>Year</td><td>Count of Female Cast</td></tr></thead>"
+            return "<table><thead><tr><td>Year</td><td>Total Female Cast</td></tr></thead>"
              + "<tbody><tr><td>"+d['Year']+"</td><td>"+d['sum_female_cast4']+"</td></tr></tbody>"
-             + "<thead><tr><td></td><td colspan='2'>Average</td></tr></thead>"
+             + "<thead><tr><td></td><td colspan='2'>Avg # Female Cast Per Movie</td></tr></thead>"
              + "<tbody><tr><td>"+"</td><td colspan='2'>"
              +d['avg_female_cast4']+"</td></tr></tbody></table>";
         });
@@ -149,7 +149,7 @@ svg.selectAll('rect')
     svg.append('text')
             .attr('class', 'x label')
               .attr("font-family", "Nunito")
-            .attr('transform', 'translate(650,500)')
+            .attr('transform', 'translate(275,500)')
             .attr('fill', 'black')
             .text('Year');
 
@@ -182,13 +182,13 @@ svg.append('g')
 
 svg.append('text')
             .attr('class', 'y label')
-            .attr('transform', 'translate(30,300)rotate(270)')
+            .attr('transform', 'translate(20,340)rotate(270)')
               .attr("font-family", "Nunito")
              // .attr("font-size", "10")
              .attr("font-weight", 'bold')
     
             .attr('fill', 'black')
-            .text('Female Cast Members');
+            .text('Total Female Cast Members');
 
 
 
@@ -197,18 +197,18 @@ var yAxis = d3.axisRight(averageScale).ticks(5);
  svg.append('g')
     .attr('class', 'average axis')
      .attr('stroke-width', 2)
-    .attr('transform', 'translate(1290,60)')
+    .attr('transform', 'translate(520,60)')
     .attr('color', '#FF8509')
     .call(yAxis);
 
 
 svg.append('text')
             .attr('class', 'average axis')
-            .attr('transform', 'translate(1320,150)rotate(-270)')
+            .attr('transform', 'translate(560,125)rotate(-270)')
               .attr("font-family", "Nunito")
               .attr('font-weight', 'bold')
               .attr('fill', 'black')
-            .text('Average Female Cast Members');
+            .text('Average Female Cast Members Per Movie');
 
 
 svg.call(toolTip);
