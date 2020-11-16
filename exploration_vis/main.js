@@ -19,8 +19,8 @@ function buildHeatMap() {
   var yearLow = 1920,
     yearHigh = 2017;
 
-  var colorScale = d3.scaleSequential()
-    .interpolator(d3.interpolateCool);
+  var colorScale = d3.scaleLinear()
+    .range(['#FFF4E9', '#366C81', '#a93f55'])
   var xScale = d3.scaleLinear()
     .domain([0, maxActors])
     .range([0, chartWidth]);
@@ -135,7 +135,7 @@ function buildHeatMap() {
   function drawMovies() {
     var grid = getGridVals();
     var maxCount = d3.max(grid.map(x => x.count));
-    colorScale.domain([0, maxCount]);
+    colorScale.domain([0, maxCount / 2, maxCount]);
     // Heatmap
     var cells = chartG.selectAll('.cell')
       .data(grid)
@@ -195,7 +195,7 @@ function buildHeatMap() {
   function updateMovies() {
     var grid = getGridVals();
     var maxCount = d3.max(grid.map(x => x.count));
-    colorScale.domain([0, maxCount]);
+    colorScale.domain([0, maxCount / 2, maxCount]);
     // Heatmap
     var cells = chartG.selectAll('.cell rect')
       .data(grid)
