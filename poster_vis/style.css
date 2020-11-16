@@ -45,9 +45,9 @@
 div.tooltip-circle { 
     position: absolute;     
     text-align: left;     
-    width: 90px;          
-    height: 15px; 
-    line-height: 10px;
+    width: 84px;          
+    height: 38px; 
+    line-height: 14px;
     padding: 6px;
     background: #FFD6AD;
     color: #333;
