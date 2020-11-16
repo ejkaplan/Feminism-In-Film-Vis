@@ -1,4 +1,5 @@
 function buildTopRanked() {
+	// console.log("inTopRanked");
 
 
 	function dataPreprocessor(row) {
@@ -15,22 +16,24 @@ function buildTopRanked() {
 	    };
 	}
 
-	var filePath = "../data/FeminismMoviesWave1.csv";
+	// var filePath = "../data/FeminismMoviesWave1.csv";
 
-	function setWave (wave) {
+	// function setWave (wave) {
+	// 	console.log("inSetWave");
 
-		if (wave == "2") {
-			filePath = "../data/FeminismMoviesWave2.csv"
-		}
-		else if (wave == "3") {
-			filePath = "../data/FeminismMoviesWave3.csv"
-		}
-		else if (wave == "4") {
-			filePath = "../data/FeminismMoviesWave4.csv"
-		}
+	// 	if (wave == "2") {
+	// 		filePath = "../data/FeminismMoviesWave2.csv";
+	// 	}
+	// 	else if (wave == "3") {
+	// 		filePath = "../data/FeminismMoviesWave3.csv";
+	// 	}
+	// 	else if (wave == "4") {
+	// 		filePath = "../data/FeminismMoviesWave4.csv";
+	// 	}
+	// 	// console.log(filePath);
 
-	}	
-
+	// }	
+	// setWave("2");
 
 	// **** Your JavaScript code goes here ****
 	var svg = d3.select('#hannah');
@@ -96,7 +99,7 @@ function buildTopRanked() {
 
 
 	d3.csv(filePath, dataPreprocessor).then(function(moviedata) {
-	    console.log(moviedata);
+	    // console.log(moviedata);
 
 	    // X SCALE
 	    var xAxisLabels = [];
