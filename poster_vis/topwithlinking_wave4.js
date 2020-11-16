@@ -258,14 +258,8 @@ function buildTopRanked4() {
       .attr("height", function(d) {
         return (5 + Number(d['percent_fem']));
       })
-      .attr("fill", function (d) {
-        if (selectOption == "all") {
-          console.log("inOrange");
-          return "#FF8509";
-        }
-        else {
-          return "#A93F55";
-        }
+      .attr("fill", function(d) {
+        return "#A93F55";
       })
       .attr("stroke", "#A93F55")
       .attr('fill-opacity', 0.8)
@@ -309,10 +303,11 @@ function buildTopRanked4() {
       .style("opacity", 0);
 
     // Code for circles //
-    var circles = svg.selectAll("circle")
+    var circles = svg.selectAll(".maincircle")
       .data(moviedata)
       .enter()
       .append("circle")
+      .attr('class', 'maincircle')
       .attr("cx", function(d, i) {
         return 124 + 40 + (imageWidth / 2) + (0.95 * i * (chartWidth / 10)); //98 padding is 6 between each bar
       })
@@ -320,24 +315,8 @@ function buildTopRanked4() {
         return (yScaleRevenue(d["revenue"])) + 285;
       })
       .attr("r", 7)
-      .attr("fill", function (d) {
-        if (selectOption == "all") {
-          console.log("inOrange");
-          return "#FF8509";
-        }
-        else {
-          return "#A93F55";
-        }
-      })
-      .attr("stroke", function (d) {
-        if (selectOption == "all") {
-          console.log("inOrange");
-          return "#FF8509";
-        }
-        else {
-          return "#A93F55";
-        }
-      })
+      .attr("fill", "#A93F55")
+      .attr("stroke", "#A93F55")
       .on("mouseover", function(d) {
         d3.select(this)
           .attr("stroke-width", 4);
@@ -379,35 +358,25 @@ function buildTopRanked4() {
           .style("opacity", 0);
       });
 
-      var other_circles = svg.selectAll("other_circle")
+    var other_circles = svg.selectAll(".other_circle")
       .data(moviedata)
       .enter()
       .append("circle")
+      .attr('class', 'othercircle')
       .attr("cx", function(d, i) {
-          return 124 + 40 + (imageWidth / 2) + (0.95 * i * (chartWidth / 10)); //98 padding is 6 between each bar
+        return 124 + 40 + (imageWidth / 2) + (0.95 * i * (chartWidth / 10)); //98 padding is 6 between each bar
       })
       .attr("cy", function(d) {
-          return (yScaleRevenue(d["alt_revenue"])) + 285;
+        return (yScaleRevenue(d["alt_revenue"])) + 285;
       })
       .attr("r", 7)
       .attr("opacity", 0.0)
-      .attr("fill", function (d) {
-        if (selectOption != "all") {
-          return "#FF8509";
-        }
-        else {
-          return "#A93F55";
-        }
-      }); 
+      .attr("fill", "#FF8509");
 
   }
 
-  var selectOption;
-
   function updateData(selection) {
     console.log(selection);
-
-    selectOption = selection;
 
     var moviedata = (selection == "all" ? allData : feministData);
 
@@ -473,19 +442,17 @@ function buildTopRanked4() {
       .attr("height", function(d) {
         return (5 + Number(d['percent_fem']));
       })
-      .attr("fill", function (d) {
-        if (selectOption == "all") {
+      .attr("fill", function(d) {
+        if (selection == "all") {
           return "#FF8509";
-        }
-        else {
+        } else {
           return "#A93F55";
         }
       })
-      .attr("stroke", function (d) {
-        if (selectOption == "all") {
+      .attr("stroke", function(d) {
+        if (selection == "all") {
           return "#FF8509";
-        }
-        else {
+        } else {
           return "#A93F55";
         }
       })
@@ -500,45 +467,43 @@ function buildTopRanked4() {
         return (Number(d['percent_fem'])) + "%";
       })
 
-    svg.selectAll('circle')
+    svg.selectAll('.maincircle')
       .data(moviedata)
       .transition()
       .duration(300)
       .attr("cy", function(d) {
         return yScaleRevenue(d["revenue"]) + 285;
       })
-      .attr("fill", function (d) {
-        if (selectOption == "all") {
+      .attr("fill", function(d) {
+        if (selection == "all") {
           return "#FF8509"; //orange
-        }
-        else {
+        } else {
           return "#A93F55";
         }
       })
-      .attr("stroke", function (d) {
-        if (selectOption == "all") {
+      .attr("stroke", function(d) {
+        if (selection == "all") {
           console.log("inOrange");
           return "#FF8509";
-        }
-        else {
+        } else {
           return "#A93F55";
         }
       });
-      svg.selectAll('other_circle')
+
+    svg.selectAll('.othercircle')
       .data(moviedata)
       .transition()
       .duration(300)
       .attr("cy", function(d) {
-        return yScaleRevenue(d["alt_revenue"]) + 285; 
+        return yScaleRevenue(d["alt_revenue"]) + 285;
       })
-      .attr("fill", function (d) {
-        if (selectOption == "all") {
-          return "#FF8509"; //orange
-        }
-        else {
+      .attr("fill", function(d) {
+        if (selection == "all") {
           return "#A93F55";
+        } else {
+          return "#FF8509";
         }
-      })  
+      })
   }
   buildTopRanked4.updateData = updateData;
 
