@@ -45,25 +45,27 @@
 div.tooltip-circle { 
     position: absolute;     
     text-align: left;     
-    width: 84px;          
-    height: 38px; 
-    line-height: 14px;
+    width: 120px;          
+    height: 63px; 
     padding: 6px;
     background: #FFD6AD;
-    color: #333;
+    color: #A93F55;
     border-radius: 4px;
+    line-height: 12px;
     font-size: 10px;
+    font-weight: 400;
     font-family: Karla, sans-serif;          
     pointer-events: none;
 }
 
-/*div.tooltip-circle h2 { 
-  font-family: Futura, sans-serif;
-  font-weight: 600;
+div.tooltip-circle h2 { 
+  color: #FF8509;
+  line-height: 12px;
   font-size: 10px;
-  line-height: 6px;
+  font-weight: 400;
+  font-family: Karla, sans-serif; 
 }
-*/
+
 
 /* Creates a small triangle extender for the tooltip */
 .d3-tip:after {

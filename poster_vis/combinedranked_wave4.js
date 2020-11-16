@@ -371,7 +371,7 @@ function buildTopRanked() {
 	      });
 
 	    // Code for alternative circles //
-	    var other_circles = svg.selectAll("circle")
+	    var other_circles = svg.selectAll("other_circle")
 	      .data(moviedata)
 	      .enter()
 	      .append("circle")
@@ -383,7 +383,8 @@ function buildTopRanked() {
 	      })
 	      .attr("r", 7)
 	      .attr("fill", "#366C81")
-	      .attr("stroke", "#366C81");
+	      .attr("stroke", "#366C81")
+	      .attr("opacity", 0.6);
 	      // .on("mouseover", function(d) {
 	      //   d3.select(this)
 	      //     .attr("stroke-width", 4);
