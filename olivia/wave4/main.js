@@ -149,7 +149,7 @@ svg.selectAll('rect')
     svg.append('text')
             .attr('class', 'x label')
               .attr("font-family", "Nunito")
-            .attr('transform', 'translate(650,500)')
+            .attr('transform', 'translate(275,500)')
             .attr('fill', 'black')
             .text('Year');
 
