@@ -1,4 +1,4 @@
-h1 {
+/*h1 {
 	font-family: 'Playfair Display';
 	font-weight: 900;
 	font-size: 48px;
@@ -6,16 +6,17 @@ h1 {
 	color: #FFF4E9;
 	line-height: 32px;
 }
-
-h2 {
+*/
+/*h2 {
 	font-family: 'Playfair Display';
 	font-weight: 600;
 	font-size: 36px;
 	font-style: normal;
 	color: #FFF4E9;
-}
+}*/
 
-h3 {
+/*wave title*/
+h1 {
 	font-family: 'Playfair Display';
 	font-weight: 800;
 	font-size: 30px;
@@ -28,6 +29,33 @@ h3 {
 	width: 100%;
 }
 
+/*graph title*/
+h2 {
+	font-family: 'Karla';
+	font-weight: 700;
+	font-size: 28px;
+	font-style: normal;
+	color: #171717;
+	text-align: center;
+	line-height: 36px;
+	padding-bottom: 12px;
+
+}
+
+/*//caption */
+h3 { 
+	font-family: 'Karla';
+	font-weight: 400;
+	font-size: 16px;
+	font-style: italic;
+	color: #171717;
+	text-align: center;
+	line-height: 20px;
+	max-width: 500px;
+	opacity: 0.8;
+}
+
+/*body text*/
 h4 {
 	font-family: 'Karla';
 	font-weight: 400;
@@ -58,6 +86,10 @@ h4 {
 	border: none !important;
 }
 
+.child .caption {
+/*	margin: 0 auto;*/
+	width: 400px;
+}
 /*.vis_container {
 	margin-left: -750;
 	width: 1300px;
