@@ -75,12 +75,17 @@ function buildKeywords() {
       .attr("r", d => d.r)
       .attr('cx', d => d.x)
       .attr('cy', d => d.y)
-      .style('fill', "#A93F55")
+      .attr('stroke', "#A93F55")
+      .attr('stroke-width', 3)
+      .style('fill', "#E6BFBD")
+      // .style('opacity', 0.3)
     circlesEnter.append('text')
       .style('text-anchor', 'middle')
       .attr('x', d => d.x)
       .attr('y', d => d.y)
-      .text(d => d.keyword);
+      .text(d => d.keyword)
+      .style("font-family", "Karla")
+      .style("font-size", "12px");
   }
 
   function updateChart() {
