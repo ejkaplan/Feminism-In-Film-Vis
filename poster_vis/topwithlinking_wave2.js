@@ -190,7 +190,7 @@ function buildTopRanked2() {
         return 125 + 40 + (0.95 * i * (chartWidth / 10)); //98 padding is 6 between each bar
       })
       .attr("y", function(d) {
-        return (chartHeight - 360);
+        return (chartHeight - 330);
       })
       .attr("width", imageWidth)
       .attr("height", imageHeight) //need to cite height to cut off images taller
@@ -225,7 +225,7 @@ function buildTopRanked2() {
         return 125 + 40 + (0.95 * i * (chartWidth / 10)); //98 padding is 6 between each bar
       })
       .attr("y", function(d) {
-        return (chartHeight - 360);
+        return (chartHeight - 330);
       })
       .attr("width", imageWidth)
       .attr("height", imageHeight)
@@ -252,7 +252,7 @@ function buildTopRanked2() {
         return 125 + 40 + (0.95 * i * (chartWidth / 10));
       })
       .attr("y", function(d) {
-        return (chartHeight - 199 - Number(d['percent_fem']));
+        return (chartHeight - 169 - Number(d['percent_fem']));
       })
       .attr("width", imageWidth)
       .attr("height", function(d) {
@@ -289,7 +289,7 @@ function buildTopRanked2() {
         return 125 + 40 + (imageWidth / 2) + (0.95 * i * (chartWidth / 10));
       })
       .attr("y", function(d) {
-        return (chartHeight - 188 - Number(d['percent_fem']));
+        return (chartHeight - 158 - Number(d['percent_fem']));
       })
       .attr("text-anchor", "middle")
       .attr("font-family", "sans-serif")
@@ -437,7 +437,7 @@ function buildTopRanked2() {
       .transition()
       .duration(300)
       .attr("y", function(d) {
-        return (chartHeight - 199 - Number(d['percent_fem']));
+        return (chartHeight - 169 - Number(d['percent_fem']));
       })
       .attr("height", function(d) {
         return (5 + Number(d['percent_fem']));
@@ -461,7 +461,7 @@ function buildTopRanked2() {
       .transition()
       .duration(300)
       .attr("y", function(d) {
-        return (chartHeight - 188 - Number(d['percent_fem']));
+        return (chartHeight - 158 - Number(d['percent_fem']));
       })
       .text(function(d) {
         return (Number(d['percent_fem'])) + "%";

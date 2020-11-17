@@ -169,7 +169,7 @@ function buildHeatMap() {
         .style("opacity", 0)
       d3.select(this)
         .style("stroke", '#333333')
-        .style('stroke-width', d => d.m == d.f ? 6 : 2);
+        .style('stroke-width', d => d.m == d.f ? 6 : 2.5);
     }
     // Draw the rectangles
     cellsEnter.append('rect')
@@ -177,7 +177,7 @@ function buildHeatMap() {
       .attr('height', cellHeight)
       .style('fill', d => colorScale(d.count))
       .style("opacity", 1.0)
-      .style('stroke-width', d => d.m == d.f ? 6 : 2)
+      .style('stroke-width', d => d.m == d.f ? 6 : 2.5)
       .style('stroke', "#333333")
       .on("mouseover", mouseover)
       .on("mouseleave", mouseleave);

@@ -20,6 +20,8 @@
 /*  background-color: #f2f2f9;*/
   float: bottom;
   width: 700px;
+  font-family: Karla;
+  font-size: 14px;
 }
 
 .controls-container .date-slider {
@@ -36,12 +38,19 @@
   overflow-y: scroll;
   width: 280px;
   height: 780px;
-  outline: 1px solid black;
+  /*outline: 1px solid black;*/
+  font-family: Karla;
+  font-size: 14px;
+  text-align: left;
+  margin-left: 5px;
+  border: 1px solid black;
+  border-radius: 4px;
 }
 
+
 #searchbox {
-  width: 98%;
-  margin: auto;
+  margin-left: 7px;
+  width: 92%;
 }
 
 .tooltip {
@@ -51,7 +60,6 @@
     height: 40px; 
     padding: 6px;
     background: #FFD6AD;
-/*    color: #A93F55;*/
     border-radius: 4px;
     line-height: 12px;
     font-size: 10px;
@@ -59,3 +67,4 @@
     font-family: Karla, sans-serif;          
     pointer-events: none;
 }
+

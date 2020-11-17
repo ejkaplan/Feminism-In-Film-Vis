@@ -89,42 +89,15 @@ h4 {
 	border: none !important;
 }
 
-/*.child .caption {
-	margin: 0 auto;
-	width: 400px;
-}*/
 
-
-
-/*.vis_container {
-	margin-left: -750;
-	width: 1300px;
-}*/
-
-
-/*.olivia_div {
-	transform: translate(50px, 100px);
-	transition-duration: 5s;
-	transition-timing-function: ease-in;
-}*/
-
-/*.inline-block-child{
-	display:inline-block;
+.tagfilter {
+	font-family: Karla, sans-serif;
+	font-size: 12px;
+	text-align: left;
+	margin-left: 5px;
 }
 
-.leftbox {
-	width:40%;
-	float:;
+.formstyling {
+	font-family: Karla;
+	font-size: 14px;
 }
-
-.paragraph {
-    width:50%;
-    float: right;
-}
-.clearfix{
-    clear:both
-}
-*/
-
-
-
