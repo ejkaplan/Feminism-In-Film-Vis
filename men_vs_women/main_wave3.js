@@ -109,10 +109,10 @@ function buildMenVsWomen() {
       .padding(0.35);
     var wScale = d3.scaleLinear()
       .domain([0, 100])
-      .range([20, 380]);
+      .range([0, 365]);
     var malewScale = d3.scaleLinear()
       .domain([0, 100])
-      .range([380, 20]);
+      .range([365, 0]);
 
     var tickLabels = ["", '20%','40%','60%', '80%', '100%'];
     var maleAxis = d3.axisTop(malewScale).ticks(6);
@@ -122,23 +122,23 @@ function buildMenVsWomen() {
 
     var lineGenerator = d3.line();
     var male20points = [
-      [malewScale(20), topPadding],
+      [malewScale(20)+15, topPadding],
       [malewScale(20), 600]
     ];
 
     var male40points = [
-      [malewScale(40), topPadding],
-      [malewScale(40), 600]
+      [malewScale(40)+15, topPadding],
+      [malewScale(40)+15, 600]
     ];
 
     var male60points = [
-      [malewScale(60), topPadding],
-      [malewScale(60), 600]
+      [malewScale(60)+15, topPadding],
+      [malewScale(60)+15, 600]
     ];
 
     var male80points = [
-      [malewScale(80), topPadding],
-      [malewScale(80), 600]
+      [malewScale(80)+15, topPadding],
+      [malewScale(80)+15, 600]
     ];
 
     maleGraph.append('path')
@@ -199,28 +199,28 @@ function buildMenVsWomen() {
 //Male axis
     maleGraph.append('g')
       .attr('class', 'x axis')
-      .attr('transform', 'translate(0,' + (topPadding) + ')')
+      .attr('transform', 'translate(15,' + (topPadding) + ')')
       .call(maleAxis)
-      .attr('font-family', 'Nunito Sans');
+      .attr('font-family', 'Karla');
 
    var female20points = [
-      [femaleGraphX + wScale(20) - 20, topPadding],
-      [femaleGraphX + wScale(20) - 20, 600]
+      [femaleGraphX + wScale(20), topPadding],
+      [femaleGraphX + wScale(20), 600]
     ];
 
     var female40points = [
-      [femaleGraphX + wScale(40) - 20, topPadding],
-      [femaleGraphX + wScale(40) - 20, 600]
+      [femaleGraphX + wScale(40), topPadding],
+      [femaleGraphX + wScale(40), 600]
     ];
 
     var female60points = [
-      [femaleGraphX + wScale(60) - 20, topPadding],
-      [femaleGraphX + wScale(60) - 20, 600]
+      [femaleGraphX + wScale(60), topPadding],
+      [femaleGraphX + wScale(60), 600]
     ];
 
     var female80points = [
-      [femaleGraphX + wScale(80) - 20, topPadding],
-      [femaleGraphX + wScale(80) - 20, 600]
+      [femaleGraphX + wScale(80), topPadding],
+      [femaleGraphX + wScale(80), 600]
     ];
 
     femaleGraph.append('path')
@@ -279,9 +279,9 @@ function buildMenVsWomen() {
 //Female Axis
     femaleGraph.append('g')
       .attr('class', 'x axis')
-      .attr('transform', 'translate(400,' + (topPadding) + ')')
+      .attr('transform', 'translate(420,' + (topPadding) + ')')
       .call(femaleAxis)
-      .attr('font-family', 'Nunito Sans');
+      .attr('font-family', 'Karla');
 
 //Vertical Year Labels
     var labels = yearsLabels.selectAll('text')
@@ -297,6 +297,7 @@ function buildMenVsWomen() {
       })
       .attr('font-size', 12)
       .style('font-weight', 'bold')
+      .style('font-family', 'Karla')
       .style('fill', 'black')
       .on('mouseover', toolTip.show)
       .on('mouseout', toolTip.hide);
@@ -308,9 +309,9 @@ function buildMenVsWomen() {
     maleGraph.append('text')
       .attr('font-size', 16)
       .text('Actors')
-      .attr('x', malewScale(50)-20)
+      .attr('x', malewScale(50))
       .attr('y', 20)
-      .style('font-family', 'Nunito Sans')
+      .style('font-family', 'Karla')
       .style('font-weight', 'bold')
       .style('fill', 'black');
 
@@ -319,7 +320,7 @@ function buildMenVsWomen() {
       .text('Actresses')
       .attr('x', femaleGraphX + wScale(50) - 50)
       .attr('y', 20)
-      .style('font-family', 'Nunito Sans')
+      .style('font-family', 'Karla')
       .style('font-weight', 'bold')
       .style('fill', 'black');
 
