@@ -39,6 +39,10 @@ h2 {
 	text-align: center;
 	line-height: 36px;
 	padding-bottom: 12px;
+	text-decoration:underline;
+	text-decoration-color: #ff8509;
+	/*text-decoration-: 10px;*/
+
 
 }
 
@@ -48,11 +52,10 @@ h3 {
 	font-weight: 400;
 	font-size: 16px;
 	font-style: italic;
-	color: #171717;
+	color: #525252;
 	text-align: center;
 	line-height: 20px;
 	max-width: 500px;
-	opacity: 0.8;
 }
 
 /*body text*/
@@ -90,6 +93,9 @@ h4 {
 /*	margin: 0 auto;*/
 	width: 400px;
 }
+
+
+
 /*.vis_container {
 	margin-left: -750;
 	width: 1300px;
