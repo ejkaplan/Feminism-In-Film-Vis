@@ -19,9 +19,6 @@ function buildKeywords() {
   var chartG = svg.append('g')
     .attr('transform', 'translate(' + [padding.l, padding.t] + ')');
   var xAxisG = chartG.append('g');
-  const yearSlider = document.getElementById("yearRange");
-  const yearLabel = document.getElementById("yearLabel");
-  var year = '1975';
 
   function changeYear(newYear) {
     newYear = "" + newYear;
