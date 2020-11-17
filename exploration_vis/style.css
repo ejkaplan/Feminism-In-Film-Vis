@@ -13,13 +13,13 @@
 }
 
 .explore-div {
-  width: 990px;
+  width: 890px;
 }
 
 .controls-container {
-/*  background-color: #f2f2f9;*/
+  /*  background-color: #f2f2f9;*/
   float: bottom;
-  width: 700px;
+  width: 600px;
   font-family: Karla;
   font-size: 14px;
 }
@@ -29,7 +29,7 @@
 }
 
 #leftcol {
-  width: 700px;
+  width: 600px;
   float: left;
 }
 
@@ -47,24 +47,22 @@
   border-radius: 4px;
 }
 
-
 #searchbox {
   margin-left: 7px;
   width: 92%;
 }
 
 .tooltip {
-    position: absolute;     
-    text-align: left;     
-    width: 130px;          
-    height: 40px; 
-    padding: 6px;
-    background: #FFD6AD;
-    border-radius: 4px;
-    line-height: 12px;
-    font-size: 10px;
-    font-weight: 400;
-    font-family: Karla, sans-serif;          
-    pointer-events: none;
+  position: absolute;
+  text-align: left;
+  width: 130px;
+  height: 40px;
+  padding: 6px;
+  background: #FFD6AD;
+  border-radius: 4px;
+  line-height: 12px;
+  font-size: 10px;
+  font-weight: 400;
+  font-family: Karla, sans-serif;
+  pointer-events: none;
 }
-
