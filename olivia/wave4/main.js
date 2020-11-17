@@ -148,9 +148,10 @@ svg.selectAll('rect')
 
     svg.append('text')
             .attr('class', 'x label')
-              .attr("font-family", "Nunito")
+              .attr("font-family", "Karla")
             .attr('transform', 'translate(275,500)')
             .attr('fill', 'black')
+            .attr('font-weight', 'bold')
             .text('Year');
 
 
@@ -182,8 +183,8 @@ svg.append('g')
 
 svg.append('text')
             .attr('class', 'y label')
-            .attr('transform', 'translate(20,340)rotate(270)')
-              .attr("font-family", "Nunito")
+            .attr('transform', 'translate(20,350)rotate(270)')
+              .attr("font-family", "Karla")
              // .attr("font-size", "10")
              .attr("font-weight", 'bold')
     
@@ -204,8 +205,8 @@ var yAxis = d3.axisRight(averageScale).ticks(5);
 
 svg.append('text')
             .attr('class', 'average axis')
-            .attr('transform', 'translate(560,125)rotate(-270)')
-              .attr("font-family", "Nunito")
+            .attr('transform', 'translate(560,110)rotate(-270)')
+              .attr("font-family", "Karla")
               .attr('font-weight', 'bold')
               .attr('fill', 'black')
             .text('Average Female Cast Members Per Movie');
@@ -218,3 +219,4 @@ svg.call(toolTip);
 }
 
 buildFemaleCastBars();
+
