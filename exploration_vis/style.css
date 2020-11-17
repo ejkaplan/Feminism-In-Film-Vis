@@ -1,3 +1,7 @@
+.explore-div {
+  margin: auto;
+}
+
 .cell rect {
   stroke: black;
   stroke-width: 1;
@@ -31,12 +35,17 @@
   float: left;
 }
 
-.tagfilter {
+#rightcol {
   float: right;
   overflow-y: scroll;
   width: 280px;
   height: 780px;
   outline: 1px solid black;
+}
+
+#searchbox {
+  width: 95%;
+  margin: auto;
 }
 
 .tooltip {

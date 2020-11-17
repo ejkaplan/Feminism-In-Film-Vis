@@ -18,11 +18,13 @@
         <input class="date-slider" id="year-high" type="range" min="1920" max="2017" step="1" value="2017" oninput="buildHeatMap.changeYearHigh(this.value)">
       </div>
     </div>
-    <div class="tagfilter" />
+    <div id=rightcol>
+      <input type="text" id="searchbox" oninput="buildHeatMap.changeSearch(this.value)">
+      <div class="tagfilter" />
+    </div>
   </div>
 </body>
 
-<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <script src="//d3js.org/d3.v5.min.js"></script>
 <script src="./main.js"></script>
 

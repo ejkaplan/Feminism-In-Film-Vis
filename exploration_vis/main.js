@@ -18,6 +18,8 @@ function buildHeatMap() {
 
   var yearLow = 1920,
     yearHigh = 2017;
+  var searchTerm = "";
+  var tagList;
 
   var colorScale = d3.scaleLinear()
     .range(['#FFF4E9', '#366C81', '#a93f55'])
@@ -98,6 +100,7 @@ function buildHeatMap() {
       keyword: x[0],
       count: x[1]
     }));
+    out = out.filter(x => x.count >= 5);
     out.sort(function(a, b) {
       if (a.count == b.count) return a.keyword > b.keyword ? 1 : -1;
       return a.count > b.count ? -1 : 1;
@@ -174,7 +177,7 @@ function buildHeatMap() {
       .on("mouseleave", mouseleave);
 
     // Populate tag list:
-    var tagList = getTagList();
+    tagList = getTagList();
     var tagDiv = d3.select(".tagfilter");
     var tags = tagDiv.selectAll('.tagbox')
       .data(tagList);
@@ -186,6 +189,7 @@ function buildHeatMap() {
       .on('change', function(d) {
         if (this.checked) selectedTags.add(d.keyword);
         else selectedTags.delete(d.keyword);
+        console.log(selectedTags);
         updateMovies();
       });
     tagsEnter.append('span')
@@ -202,6 +206,35 @@ function buildHeatMap() {
       .transition()
       .duration(200)
       .style('fill', d => colorScale(d.count));
+  }
+
+  function updateTags() {
+    // Update Searchable Tags
+    var filteredTagList = searchTerm.length > 0 ? tagList.filter(x => x.keyword.includes(searchTerm)) : tagList;
+    var tagDiv = d3.select(".tagfilter");
+    var tags = tagDiv.selectAll('.tagbox')
+      .data(filteredTagList);
+    tags.exit().remove();
+    var tagSpans = tagDiv.selectAll('.tagbox span')
+      .data(filteredTagList)
+      .html(d => d.keyword + " (" + d.count + ")<br>");
+    var tagBoxes = tagDiv.selectAll('.tagbox input')
+      .data(filteredTagList)
+    var tagsEnter = tags.enter()
+      .append('g')
+      .attr('class', 'tagbox');
+    tagsEnter.append('input')
+      .attr('type', 'checkbox')
+      .on('change', function(d) {
+        if (this.checked) selectedTags.add(d.keyword);
+        else selectedTags.delete(d.keyword);
+        console.log(selectedTags);
+        updateMovies();
+      });
+    tagsEnter.append('span')
+      .html(d => d.keyword + " (" + d.count + ")<br>");
+    tagDiv.selectAll('.tagbox input')
+      .property('checked', d => selectedTags.has(d.keyword));
   }
 
   function changeYearLow(year, update = true) {
@@ -231,6 +264,12 @@ function buildHeatMap() {
       updateMovies();
   }
   buildHeatMap.changeYearHigh = changeYearHigh;
+
+  function changeSearch(searchStr) {
+    searchTerm = searchStr.toLowerCase();
+    updateTags();
+  }
+  buildHeatMap.changeSearch = changeSearch;
 }
 
 buildHeatMap();
