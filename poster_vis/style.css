@@ -64,6 +64,7 @@ div.tooltip-circle h2 {
   font-weight: 400;
   font-family: Karla, sans-serif; 
   text-align: left;
+  text-decoration: none;
 }
 
 
@@ -115,6 +116,7 @@ div.tooltip-circle h2 {
   padding-top: 10px;
 }
 
+/*
 .filter {
     cursor: pointer;
 }
@@ -136,4 +138,4 @@ div.tooltip-circle h2 {
 .filter.selected rect {
     fill: #9F1D5A;
 }
-
+*/

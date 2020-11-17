@@ -509,4 +509,4 @@ function buildTopRanked2() {
 
 }
 
-buildTopRanked4();
+buildTopRanked2();
