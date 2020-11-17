@@ -13,13 +13,13 @@
 }
 
 .explore-div {
-  width: 890px;
+  width: 790px;
 }
 
 .controls-container {
   /*  background-color: #f2f2f9;*/
   float: bottom;
-  width: 600px;
+  width: 500px;
   font-family: Karla;
   font-size: 14px;
 }
@@ -29,15 +29,15 @@
 }
 
 #leftcol {
-  width: 600px;
+  width: 500px;
   float: left;
 }
 
 #rightcol {
   float: right;
   overflow-y: scroll;
-  width: 280px;
-  height: 680px;
+  width: 270px;
+  height: 580px;
   /*outline: 1px solid black;*/
   font-family: Karla;
   font-size: 14px;
