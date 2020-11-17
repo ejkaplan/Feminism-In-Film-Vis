@@ -10,7 +10,7 @@ function buildHeatMap() {
     b: 60,
     l: 60
   };
-  const maxActors = 20;
+  const maxActors = 15;
   var chartWidth = svgWidth - padding.l - padding.r;
   var chartHeight = svgHeight - padding.t - padding.b;
   const cellWidth = chartWidth / (maxActors + 1);
@@ -21,8 +21,9 @@ function buildHeatMap() {
   var searchTerm = "";
   var tagList;
 
-  var colorScale = d3.scaleLinear()
+  var colorScale = d3.scalePow()
     .range(['#FFF4E9', '#366C81', '#a93f55'])
+    .exponent(0.5)
   var xScale = d3.scaleLinear()
     .domain([0, maxActors])
     .range([0, chartWidth]);
@@ -51,7 +52,7 @@ function buildHeatMap() {
     .attr('class', 'axis-label')
     .attr('transform', 'rotate(-90)')
     .attr('dy', (-padding.l / 2) - 10)
-    .attr('dx', -chartHeight / 2 )
+    .attr('dx', -chartHeight / 2)
     .attr('text-anchor', 'middle')
     .attr('alignment-baseline', 'middle')
 
