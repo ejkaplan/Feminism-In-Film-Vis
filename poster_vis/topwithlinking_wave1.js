@@ -1,4 +1,4 @@
-function buildTopRanked4() {
+function buildTopRanked1() {
   // console.log("inTopRanked");
 
 
@@ -19,7 +19,7 @@ function buildTopRanked4() {
   }
 
   // **** Your JavaScript code goes here ****
-  var svg = d3.select('#hannah_div4');
+  var svg = d3.select('#hannah_div1');
 
   svg.append("rect")
     .attr("width", "100%")
@@ -45,10 +45,10 @@ function buildTopRanked4() {
   var imageHeight = 165.3;
 
   var feministData, allData;
-  d3.csv("../data/CombinedMoviesWave4b.csv", dataPreprocessor).then(function(moviedata) {
+  d3.csv("../data/CombinedMoviesWave1b.csv", dataPreprocessor).then(function(moviedata) {
     allData = moviedata;
   });
-  d3.csv("../data/CombinedMoviesWave4a.csv", dataPreprocessor).then(function(moviedata) {
+  d3.csv("../data/CombinedMoviesWave1a.csv", dataPreprocessor).then(function(moviedata) {
     feministData = moviedata;
     drawMovies(feministData);
   });
@@ -505,7 +505,7 @@ function buildTopRanked4() {
         }
       })
   }
-  buildTopRanked4.updateData = updateData;
+  buildTopRanked1.updateData = updateData;
 
 }
 
