@@ -232,31 +232,72 @@
     </div>
   </div>
 
-
-  <div id="finalgraphs" class="container" style="text-align: center ">
-    Placeholder Text 4: [Clever tagline here]
-    <div id="eliot_div" style="text-align: center">
-      <svg id="eliot_keywords" width="700" height="700" style="border: 1px solid #777; text-align: center" />
+<div id="conclusion" width="100%">
+  <br>
+  <br>
+  <h1 class="container" width="100%" style="background-color: #FFF4E9">What It All Comes Down To...</h1>
+  <div id="concl">
+    <br>
+    <br>
+    <h4 class="child"> Collectively, we aimed to visualize how far we are from ideal gender equality in film. The below visualizations allow for further exploration into films and the feminist movement through the lens of greater intersectionality. For example, you can filter by ‘African American’, ‘Lesbian’, ‘Transgender’ and more.
       <br>
-      <div class="slidecontainer" style="text-align: center">
+      <br>
+      Mainstream western feminism has often left out women of color, LGBTQ individuals and others, despite their vast and invaluable work for women’s movements. We look forward to a time where the intersectionality of feminism in film is both represented and celebrated. 
+      <br>
+      <br>
+       The thing about waves is that they absorb more energy and grow stronger as they move, and we’re confident that women will continue gathering strength for time to come. 
+      <br>
+      <br>
+    </h4>
+  </div>
+
+<div class='child' >
+  <div id="finalgraphs" class="container" style="text-align: center ">
+    <div id="eliot_div" style="text-align: center">
+      <br>
+        <br>
+        <h2 class="child"> Top Keywords by Year</h2>
+        <h3 class = "child"> Moving the slider across the years shows how more female-related topics have become more prevalent in film in the last 2 waves. 
+        <br>
+        <br>
+        There are also specific words like 'woman director' and 'female nudity' that point to the consistent normalization of the male experience in media. 
+        <br>
+        <br> 
+        </h3>
+
+      <svg id="eliot_keywords" width="1300" height="400" style="border: 1px solid #777; text-align: center; border:none;" />
+      <br>
+      <div class="slidecontainer child" style="text-align: center">
         <input type="range" min="1920" max="2017" value="1975" step="1" class="slider" id="yearRange" oninput="buildKeywords.changeYear(this.value)">
         <label for="yearRange" id="yearLabel">Year: 1975</label>
       </div>
     </div>
 
-    Placeholder Text 5: The Placeholdening
-    <div class="explore-div" style="text-align: center">
-      <div id=leftcol>
-        <svg id="heatmap_svg" class="heatmap" width="700" height="700" style="border: 1px solid #777;" />
-        <div class="controls-container">
-          <label for="year-low" id="year-low-label">Year Low: 1874</label>
-          <input class="date-slider" id="year-low" type="range" min="1920" max="2017" step="1" value="1920" oninput="buildHeatMap.changeYearLow(this.value)">
-          <label for="year-high" id="year-high-label">Year High: 2017</label>
-          <input class="date-slider" id="year-high" type="range" min="1920" max="2017" step="1" value="2017" oninput="buildHeatMap.changeYearHigh(this.value)">
+  
+      <div class="explore-div" style = 'text-align: center'>
+        <br>
+          <br>
+          <h2 class="child"> Explore Keywords and Cast Members</h2>
+          <h3 class="child"> 
+            Selecting key words from the dataset shows how prevalent they were in movies, plotted by the proportion of men and women cast members in those movies.  
+          <br>
+          <br>
+            Change the year sliders and hover over the plot to see the proportion of cast members for any combination of keywords.
+          
+          </h3>
+        <div id=leftcol>
+          <svg id="heatmap_svg" class="heatmap" width="700" height="700" />
+          <div class="controls-container">
+            <label for="year-low" id="year-low-label">Year Low: 1874</label>
+            <input class="date-slider" id="year-low" type="range" min="1920" max="2017" step="1" value="1920" oninput="buildHeatMap.changeYearLow(this.value)">
+            <label for="year-high" id="year-high-label">Year High: 2017</label>
+            <input class="date-slider" id="year-high" type="range" min="1920" max="2017" step="1" value="2017" oninput="buildHeatMap.changeYearHigh(this.value)">
+          </div>
         </div>
+        <div class="tagfilter" />
       </div>
-      <div class="tagfilter" />
     </div>
+  </div>
   </div>
   </div>
 
@@ -277,12 +318,11 @@
 <script src="../men_vs_women/main_wave4.js"></script>
 
 <script src="../poster_vis/toprankedmovies.js"></script>
-<script src="../poster_vis/toprankedmovies_wave2.js"></script>
-<script src="../poster_vis/toprankedmovies_wave3.js"></script>
-<script src="../poster_vis/toprankedmovies_wave4.js"></script>
+<script src="../poster_vis/topwithlinking_wave2.js"></script>
+<script src="../poster_vis/topwithlinking_wave3.js"></script>
 <script src="../poster_vis/topwithlinking_wave4.js"></script>
 
-<script src="../keywords_through_time/main.js"></script>
+<script src="../keywords_through_time/mainbubbles.js"></script>
 <script src="../exploration_vis/main.js"></script>
 
 </html>
