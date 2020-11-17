@@ -65,6 +65,11 @@ function buildKeywords() {
   }
   buildKeywords.changeYear = changeYear;
 
+  var toolTipBubble = d3.select("body")
+    .append("div")
+    .attr("class", "tooltip-bubble")
+    .style("opacity", 0);
+
   function drawChart() {
     var circles = chartG.selectAll('.keyword_circle')
       .data(keywords);
@@ -75,17 +80,37 @@ function buildKeywords() {
       .attr("r", d => d.r)
       .attr('cx', d => d.x)
       .attr('cy', d => d.y)
-      .attr('stroke', "#A93F55")
-      .attr('stroke-width', 3)
-      .style('fill', "#E6BFBD")
-      // .style('opacity', 0.3)
+      .style('fill', "#D4999F")
+      .on('mouseover', function (d) {
+        d3.select(this)
+          .style('fill', "#BA6473");
+        toolTipBubble
+          .style("opacity", 1.0)
+          .html("Count: " + d.count)
+          .style("left", (d3.event.pageX + 10) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+      })
+      .on('mousemove', function (d) {
+        d3.select(this)
+        toolTipBubble
+          .style("left", (d3.event.pageX + 10) + "px")
+          .style("top", (d3.event.pageY - 28) + "px");
+      })
+      .on('mouseout', function (d) {
+        d3.select(this)
+          .style('fill', "#D4999F");
+        toolTipBubble
+          .style("opacity", 0.0);
+      })
+
     circlesEnter.append('text')
       .style('text-anchor', 'middle')
       .attr('x', d => d.x)
       .attr('y', d => d.y)
       .text(d => d.keyword)
       .style("font-family", "Karla")
-      .style("font-size", "12px");
+      .style("font-size", "12px")
+      .style("fill", "black");
   }
 
   function updateChart() {
