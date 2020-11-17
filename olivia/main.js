@@ -51,7 +51,7 @@ var hScale = d3.scaleLinear()
 
 
 var averageScale = d3.scaleLinear()
-    .domain([0,20])
+    .domain([0,10])
     .range([400,0]);
 
 

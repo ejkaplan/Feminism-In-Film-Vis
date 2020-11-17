@@ -40,16 +40,18 @@ function buildHeatMap() {
   xAxisG.call(d3.axisBottom(xScale).ticks(maxActors));
   xAxisG.append('text')
     .text("Number of Male Cast Members")
-    .attr('dy', padding.b / 2)
+    .attr('class', 'axis-label')
+    .attr('dy', (padding.b / 2) + 10)
     .attr('dx', chartWidth / 2)
     .attr('text-anchor', 'middle')
     .attr('alignment-baseline', 'middle')
   yAxisG.call(d3.axisLeft(yScale).ticks(maxActors));
   yAxisG.append('text')
     .text("Number of Female Cast Members")
+    .attr('class', 'axis-label')
     .attr('transform', 'rotate(-90)')
-    .attr('dy', -padding.l / 2)
-    .attr('dx', -chartHeight / 2)
+    .attr('dy', (-padding.l / 2) - 10)
+    .attr('dx', -chartHeight / 2 )
     .attr('text-anchor', 'middle')
     .attr('alignment-baseline', 'middle')
 
@@ -152,11 +154,12 @@ function buildHeatMap() {
         .transition()
         .duration(200)
         .style("opacity", 1)
-      tooltipDiv.html(d.count + " movies with " + d.m + " " + "credited male actors and " + d.f + " credited female actors.")
+      tooltipDiv.html(d.count + " movie(s) with: " + "<br>" + d.m + " " + "credited male actors and " + "<br>" + d.f + " credited female actors")
         .style("left", (d3.event.pageX) + "px")
         .style("top", (d3.event.pageY - cellHeight) + "px");;
       d3.select(this)
-        .style("stroke", 'red');
+        .style("stroke", "#ff8509")
+        .style("stroke-width", 4);
     }
     var mouseleave = function(d) {
       tooltipDiv
@@ -164,15 +167,17 @@ function buildHeatMap() {
         .duration(200)
         .style("opacity", 0)
       d3.select(this)
-        .style("stroke", 'black');
+        .style("stroke", '#333333')
+        .style('stroke-width', d => d.m == d.f ? 6 : 2);
     }
     // Draw the rectangles
     cellsEnter.append('rect')
       .attr('width', cellWidth)
       .attr('height', cellHeight)
       .style('fill', d => colorScale(d.count))
-      .style('stroke-width', d => d.m == d.f ? 5 : 1)
-      .style('stroke', 'black')
+      .style("opacity", 1.0)
+      .style('stroke-width', d => d.m == d.f ? 6 : 2)
+      .style('stroke', "#333333")
       .on("mouseover", mouseover)
       .on("mouseleave", mouseleave);
 
