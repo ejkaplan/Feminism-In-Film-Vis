@@ -24,7 +24,7 @@ function buildKeywords() {
   var year = '1975';
 
 
-  
+
 
   function changeYear(newYear) {
     newYear = "" + newYear;
@@ -44,53 +44,57 @@ function buildKeywords() {
     var xScale = d3.scaleBand()
       .domain(years[year].map(x => x['keyword']))
       .range([100, 600]);
-    
-   // var rScale = d3.scaleLinear()
-     // .domain([0, d3.max(years[year].map(x => x['count']))])
+
+    // var rScale = d3.scaleLinear()
+    // .domain([0, d3.max(years[year].map(x => x['count']))])
     //  .range([0, chartWidth]);
-  //  xAxisG.call(d3.axisLeft(xScale));
+    //  xAxisG.call(d3.axisLeft(xScale));
 
     var circles = chartG.selectAll('.keyword_circle')
       .data(years[year])
-      //console.log(years[year]);
+    //console.log(years[year]);
     var circlesEnter = circles.enter()
       .append('g')
       .attr('class', 'keyword_circle')
       .attr('transform', d => 'translate(' + [xScale(d['keyword']), chartHeight / 2] + ')')
 
-   // circlesEnter.append('circle')
+    // circlesEnter.append('circle')
     //  .attr('transform', d => 'translate(' + [-padding.l, -barBand / 2] + ')')
-     // .attr('height', barBand)
-     // .attr('width', svgWidth)
-      //.style('opacity', (d, i) => i % 2 == 0 ? 1 : 0)
-     // .style('fill', '#FFCE99')
+    // .attr('height', barBand)
+    // .attr('width', svgWidth)
+    //.style('opacity', (d, i) => i % 2 == 0 ? 1 : 0)
+    // .style('fill', '#FFCE99')
 
     circlesEnter.append('circle')
-    .attr("id", d => (d['keyword']))
-      .attr("r", function (d) {return 1.5 * d['count']})
+      .attr("id", d => (d['keyword']))
+      .attr("r", function(d) {
+        return 1.5 * d['count']
+      })
       .attr('cx', d => xScale(d['keyword']))
       .style('fill', '#FFD6AD')
       .style('opacity', '50%')
       .attr('stroke', '#FF8509')
-     .attr('stroke-width', 2);
+      .attr('stroke-width', 2);
 
 
     circlesEnter.append('text')
-    .attr('x', function (d) {return xScale(d['keyword'])})
-    .style('text-anchor', 'middle')
-    .attr('y', chartHeight/5)
-    //.attr('transform', 'translate(60,60)')
-    //.attr('transform', function (d) {return 'rotate(-30)'})
+      .attr('x', function(d) {
+        return xScale(d['keyword'])
+      })
+      .style('text-anchor', 'middle')
+      .attr('y', chartHeight / 5)
+      //.attr('transform', 'translate(60,60)')
+      //.attr('transform', function (d) {return 'rotate(-30)'})
 
       .text(d => d['keyword'])
   }
 
   function updateChart() {
     //var yScale = d3.scaleBand()
-     // .domain(years[year].map(x => x['keyword']))
+    // .domain(years[year].map(x => x['keyword']))
     //  .range([0, chartWidth]);
     //var xScale = d3.scaleLinear()
-   //   .domain([0, d3.max(years[year].map(x => x['count']))])
+    //   .domain([0, d3.max(years[year].map(x => x['count']))])
     //  .range([0, chartWidth]);
     //xAxisG.transition().duration(300).call(d3.axisTop(xScale));
 
@@ -98,7 +102,9 @@ function buildKeywords() {
       .data(years[year])
       .transition()
       .duration(300)
-      .attr("r", function (d) {return 1.5 * d['count']})
+      .attr("r", function(d) {
+        return 5 * Math.sqrt(d['count']);
+      })
     var labels = chartG.selectAll('.keyword_circle text')
       .data(years[year])
       .text(d => d['keyword'])
