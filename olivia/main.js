@@ -69,9 +69,9 @@ var toolTip = d3.tip()
         .html(function(d, i) {
             // console.log(d);
             // console.log(i);
-            return "<table><thead><tr><td>Year</td><td>Count of Female Cast</td></tr></thead>"
+            return "<table><thead><tr><td>Year</td><td>Total Female Cast</td></tr></thead>"
              + "<tbody><tr><td>"+d['Year']+"</td><td>"+d['sum_female_cast']+"</td></tr></tbody>"
-             + "<thead><tr><td></td><td colspan='2'>Average</td></tr></thead>"
+             + "<thead><tr><td></td><td colspan='2'>Avg # Female Cast Per Movie</td></tr></thead>"
              + "<tbody><tr><td>"+"</td><td colspan='2'>"
              +d['avg_female_cast']+"</td></tr></tbody></table>";
         });
@@ -153,7 +153,7 @@ svg.selectAll('rect')
 
     svg.append('text')
             .attr('class', 'x label')
-              .attr("font-family", "Nunito")
+              .attr("font-family", "Karla")
             .attr('transform', 'translate(650,500)')
             .attr('fill', '#171717')
             .attr('font-weight', 'bold')
@@ -187,14 +187,14 @@ svg.append('g')
 
 svg.append('text')
             .attr('class', 'y label')
-            .attr('transform', 'translate(20,330)rotate(270)')
-              .attr("font-family", "Nunito")
+            .attr('transform', 'translate(20,350)rotate(270)')
+              .attr("font-family", "Karla")
               .attr('font-weight', 'bold')
              // .attr("font-size", "10")
              // .attr("font-weight", "100")
     
             .attr('fill', '#171717')
-            .text('Female Cast Members');
+            .text('Total Female Cast Members');
 
 
 
@@ -211,11 +211,11 @@ var yAxis = d3.axisRight(averageScale).ticks(5);
 
 svg.append('text')
             .attr('class', 'average axis')
-            .attr('transform', 'translate(1320,150)rotate(-270)')
-              .attr("font-family", "Nunito")
+            .attr('transform', 'translate(1320,110)rotate(-270)')
+              .attr("font-family", "Karla")
               .attr('font-weight', 'bold')
               .attr('fill', 'black')
-            .text('Average Female Cast Members');
+            .text('Average Female Cast Members Per Movie');
 
 
 svg.call(toolTip);
