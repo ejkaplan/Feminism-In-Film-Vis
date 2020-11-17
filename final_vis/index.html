@@ -13,13 +13,13 @@
   <link href='https://fonts.googleapis.com/css?family=Karla:400,700' rel='stylesheet' type='text/css'>
 </head>
 
-<body style="background-color: #FFF4E9">
+<body style="background-color: #FFF4E9; border:0; outline:0; margin:0; padding:0;">
   <img src="male_film_set_cropped.jpg" alt="photo" object-fit="cover" width="100%">
 
   <div id="intro" class="container">
     <br>
     <br>
-    <h4 class="child"> Historically, women have been left in the shadows, their stories and labor hidden behind their male counterparts.
+    <h4 class="child">Historically, women have been left in the shadows, their stories and labor hidden behind their male counterparts.
       <br>
       <br>
       Through this visualization, we see that in film, it is no different. Portrayal of social movements in mass media shapes and is shaped by popular attitude towards those movements.
@@ -35,38 +35,31 @@
   </div>
   <br>
   <br>
-
   <div id="wave1" width="100%">
     <h1 class="container" width="100%" style="background-color: #FFF4E9">Feminist Wave 1: 19th Century - Early 20th Century</h1>
-
     <h4 class="child">While people have been debating women’s place in the world since the beginning of time, the first wave of feminism signifies the West’s first major sustained political movement predicated on attaining political equality for
       women. Significant events include the Seneca Falls Convention and the ratification of the 19th amendment, securing women's suffrage.
       <br>
       <br>
       Further, the film industry really took off during the first wave, and slowly but surely, we begin to see more women appear in films across the wave’s timeframe.
     </h4>
-
     <div id="wave1graphs" class="container">
-
       <div id="olivia_div" style="text-align: center">
         <br>
         <br>
-        <h2 class="child"> Women in Film by Year</h2>
+        <h2 class="child">Women in Film by Year</h2>
         <h3 class="child">While female presence in film increased across and past the first wave, it was proportional to the growing size of the film industry.</h3>
         <svg id="olivia_div1" width="1380" height="550" style="background-color: #FFF4E9;" />
       </div>
-
-
       <div id="harshali_div" style="text-align: center">
         <br>
         <br>
-        <h2 class="child"> Percentage of Actors and Actresses</h2>
+        <h2 class="child">Ratio of Movie Actors to Actresses by Year</h2>
         <h3 class="child caption">Despite an increase in female cast members, comparing the genders shows that women consistently accounted for less than 40% of movie casts in the first wave. </h3>
         <br>
         <br>
-        <svg id="harshali_div1" width="900" height="700" style="border: 1px solid #777; background-color: ##FFF4E9; border: none" />
+        <svg id="harshali_div1" width="800" height="700" style="border: 1px solid #777; background-color: ##FFF4E9; border: none" />
       </div>
-
       <div id="hannah_div" style="text-align: center">
         <br>
         <br>
@@ -80,13 +73,15 @@
         <br>
         <svg id="hannah_div1" width="1380" height="600" style="border: 1px solid #777; border: none" />
         <form>
-          <input type="radio" name="poster_wave1_radio" value="feminist" onclick="buildTopRanked.updateData(this.value)" checked> Feminist Films
-          <input type="radio" name="poster_wave1_radio" value="all" onclick="buildTopRanked.updateData(this.value)"> All Films
+          <input type="radio" name="poster_wave1_radio" value="feminist" onclick="buildTopRanked1.updateData(this.value)" checked> Feminist Films
+          <input type="radio" name="poster_wave1_radio" value="all" onclick="buildTopRanked1.updateData(this.value)"> All Films
         </form>
       </div>
     </div>
   </div>
-
+  <br>
+  <br>
+  <br>
   <div id="wave2" width="100%">
     <h1 class="container" width="100%" style="background-color: #FFF4E9">Feminist Wave 2: 1960s - 1970s</h1>
     <h4 class="child">The second wave of feminism was focused on broader social issues including domestic violence, sexual harassment, reproductive rights, equality in the workplace, and portrayal in media. It changed the way society saw women.
@@ -104,17 +99,17 @@
       <div id="olivia_div" style="text-align: center">
         <br>
         <br>
-        <h2 class="child"> Women in Film by Year</h2>
+        <h2 class="child">Women in Film by Year</h2>
         <h3 class="child">The number of female cast members remains low across these 20 years, despite major achievements and advances for the feminist movement. The average number of actresses never exceeds 2. </h3>
         <svg id="olivia_div2" width="1380" height="550" style="background-color: #FFF4E9;" />
       </div>
       <div id="harshali_div" style="text-align: center">
         <br>
         <br>
-        <h2 class="child"> Percentage of Actors and Actresses</h2>
+        <h2 class="child">Ratio of Movie Actors to Actresses by Year</h2>
         <h3 class="child caption">Similar to the first wave, comparing the genders in movie casts shows that women consistently accounted for less than 35% of movie casts in the second wave. </h3>
         <br>
-        <svg id="harshali_div2" width="900" height="600" style="border: 1px solid #777; background-color: ##FFF4E9; border: none" />
+        <svg id="harshali_div2" width="800" height="600" style="border: 1px solid #777; background-color: ##FFF4E9; border: none" />
       </div>
       <div id="hannah_div" style="text-align: center">
         <br>
@@ -122,7 +117,7 @@
         <br>
         <br>
         <h2 class="child">Top 10 Movies</h2>
-        <h3 class="child caption"> Feminist movies in this era had more women in their casts, but still made less than half the revenue of the top ranked overall film. </h3>
+        <h3 class="child caption">Feminist movies in this era had more women in their casts, but still made less than half the revenue of the top ranked overall film. </h3>
         <br>
         <svg id="hannah_div2" width="1380" height="600" style="border: 1px solid #777; border: none" />
         <form>
@@ -132,7 +127,9 @@
       </div>
     </div>
   </div>
-
+  <br>
+  <br>
+  <br>
   <div id="wave3" width="100%">
     <h1 class="container" width="100%" style="background-color: #FFF4E9">Feminist Wave 3: 1980 - 2010</h1>
     <h4 class="child">The Third wave was born out of the civil-rights movement and other advances of the second wave. Women involved in the third wave had a heightened awareness of the obstacles presented to them by sexism, racism and classism. They
@@ -148,7 +145,7 @@
       <div id="olivia_div" style="text-align: center">
         <br>
         <br>
-        <h2 class="child"> Women in Film by Year</h2>
+        <h2 class="child">Women in Film by Year</h2>
         <h3 class="child">Movies of the third wave saw a steep increase in female cast members. However, the average number of female cast members remained almost the same as the previous wave. </h3>
         <svg id="olivia_div3" width="1380" height="550" style="background-color: #FFF4E9;" />
       </div>
@@ -156,10 +153,10 @@
         <br>
         <br>
         <br>
-        <h2 class="child"> Percentage of Actors and Actresses</h2>
+        <h2 class="child">Ratio of Movie Actors to Actresses by Year</h2>
         <br>
-        <h3 class="child caption"> While there was an increase in the number of female cast members, the proportion of actors to actresses remains largely stagnant in the third wave. </h3>
-        <svg id="harshali_div3" width="900" height="600" style="border: 1px solid #777; background-color: ##FFF4E9; border: none" />
+        <h3 class="child caption">While there was an increase in the number of female cast members, the proportion of actors to actresses remains largely stagnant in the third wave. </h3>
+        <svg id="harshali_div3" width="800" height="600" style="border: 1px solid #777; background-color: ##FFF4E9; border: none" />
       </div>
       <div id="hannah_div" style="text-align: center">
         <br>
@@ -179,7 +176,9 @@
       </div>
     </div>
   </div>
-
+  <br>
+  <br>
+  <br>
   <div id="wave4" width="100%">
     <h1 class="container" width="100%" style="background-color: #FFF4E9">Feminist Wave 4: 2010s - Present</h1>
     <h4 class="child">The fourth wave is still emerging, but has ushered in global conversations concerning the oppression of women. A cornerstone of the fourth wave has been the #MeToo movement.
@@ -196,7 +195,7 @@
       <div id="olivia_div" style="text-align: center">
         <br>
         <br>
-        <h2 class="child"> Women in Film by Year</h2>
+        <h2 class="child">Women in Film by Year</h2>
         <h3 class="child">Despite a massive increase in the number of female cast members, the average number of women in movies remains almost the same as it was in the first feminist wave.
           <br>
           <br>
@@ -208,12 +207,12 @@
         <br>
         <br>
         <br>
-        <h2 class="child"> Percentage of Actors and Actresses</h2>
+        <h2 class="child">Ratio of Movie Actors to Actresses by Year</h2>
         <br>
         <h3 class="child caption"> Similarly, the proportion of actresses to actors has remained the same across the waves, despite continuous efforts to increase and improve female representation in the media. </h3>
         <br>
         <br>
-        <svg id="harshali_div4" width="900" height="300" style="border: 1px solid #777; background-color: ##FFF4E9; border: none" />
+        <svg id="harshali_div4" width="800" height="300" style="border: 1px solid #777; background-color: ##FFF4E9; border: none" />
       </div>
       <div id="hannah_div" style="text-align: center">
         <br>
@@ -221,7 +220,7 @@
         <br>
         <h2 class="child">Top 10 Movies</h2>
         <br>
-        <h3 class="child caption"> For the first time, the highest grossing feminist movie exceeds the revenue of the highest grossing overall movie. Additionally, several of the overall top ranked movies have larger female casts, pointing to an
+        <h3 class="child caption">For the first time, the highest grossing feminist movie exceeds the revenue of the highest grossing overall movie. Additionally, several of the overall top ranked movies have larger female casts, pointing to an
           emerging popularity of female-forward films. </h3>
         <br>
         <svg id="hannah_div4" width="1380" height="600" style="border: 1px solid #777; border: none" />
@@ -230,24 +229,14 @@
           <input type="radio" name="poster_wave4_radio" value="all" onclick="buildTopRanked4.updateData(this.value)"> All Films
         </form>
       </div>
-      <div id="hannah_div" style="text-align: center">
-        <svg id="hannah_div5" width="1380" height="600" style="border: 1px solid #777; border: none" />
-        <form>
-          <input type="radio" name="poster_wave5_radio" value="feminist" onclick="buildTopRanked4.updateData(this.value)" checked> Feminist Films
-          <input type="radio" name="poster_wave5_radio" value="all" onclick="buildTopRanked4.updateData(this.value)"> All Films
-        </form>
-      </div>
-
     </div>
   </div>
-
+  <br>
+  <br>
+  <br>
   <div id="conclusion" width="100%">
-    <br>
-    <br>
     <h1 class="container" width="100%" style="background-color: #FFF4E9">What It All Comes Down To...</h1>
     <div id="concl">
-      <br>
-      <br>
       <h4 class="child"> Collectively, we aimed to visualize how far we are from ideal gender equality in film. The below visualizations allow for further exploration into films and the feminist movement through the lens of greater intersectionality.
         For example, you can filter by ‘African American’, ‘Lesbian’, ‘Transgender’ and more.
         <br>
@@ -309,11 +298,17 @@
             <input type="text" id="searchbox" oninput="buildHeatMap.changeSearch(this.value)">
             <div class="tagfilter" />
           </div>
+          </div>
         </div>
-      </div>
+
     </div>
   </div>
+
   </div>
+
+
+
+
 
 </body>
 
