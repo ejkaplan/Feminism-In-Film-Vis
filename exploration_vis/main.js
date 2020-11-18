@@ -1,4 +1,5 @@
 // Tooltip code adapted from https://www.d3-graph-gallery.com/graph/interactivity_tooltip.html and https://bl.ocks.org/d3noob/a22c42db65eb00d4e369
+
 function buildHeatMap() {
 
   var svg = d3.select('#heatmap_svg');
@@ -7,7 +8,7 @@ function buildHeatMap() {
   var padding = {
     t: 40,
     r: 40,
-    b: 60,
+    b: 110,
     l: 60
   };
   const maxActors = 15;
@@ -23,7 +24,7 @@ function buildHeatMap() {
 
   var colorScale = d3.scalePow()
     .range(['#FFF4E9', '#366C81', '#a93f55'])
-    .exponent(0.5)
+    .exponent(0.5);
   var xScale = d3.scaleLinear()
     .domain([0, maxActors])
     .range([0, chartWidth]);
@@ -42,7 +43,7 @@ function buildHeatMap() {
   xAxisG.append('text')
     .text("Number of Male Cast Members")
     .attr('class', 'axis-label')
-    .attr('dy', (padding.b / 2) + 10)
+    .attr('dy', (padding.b / 3))
     .attr('dx', chartWidth / 2)
     .attr('text-anchor', 'middle')
     .attr('alignment-baseline', 'middle')
@@ -142,6 +143,7 @@ function buildHeatMap() {
     var grid = getGridVals();
     var maxCount = d3.max(grid.map(x => x.count));
     colorScale.domain([0, maxCount / 2, maxCount]);
+
     // Heatmap
     var cells = chartG.selectAll('.cell')
       .data(grid)
@@ -182,6 +184,33 @@ function buildHeatMap() {
       .on("mouseover", mouseover)
       .on("mouseleave", mouseleave);
 
+    // Draw the color scale
+    var scaleWidth = svgWidth - 60;
+    var colorScaleTicks = []
+    for (var i = 0; i < 10; i++) {
+      colorScaleTicks.push(Math.round(i * maxCount / 9))
+    }
+    var scaleG = chartG.append('g')
+      .attr('class', 'colorScale')
+      .attr('transform', d => 'translate(' + [-15, chartHeight + 70] + ')')
+    scaleG.selectAll('rect')
+      .data(colorScaleTicks)
+      .enter()
+      .append('rect')
+      .style('fill', d => colorScale(d))
+      .attr('width', scaleWidth / colorScaleTicks.length)
+      .attr('height', 30)
+      .attr('x', (d, i) => (scaleWidth / colorScaleTicks.length) * i)
+      .style('stroke', 'black')
+    scaleG.selectAll('text')
+      .data(colorScaleTicks)
+      .enter()
+      .append('text')
+      .attr('x', (d, i) => (scaleWidth / colorScaleTicks.length) * (i + 0.5))
+      .attr('y', 20)
+      .attr('text-anchor', 'middle')
+      .text(d => d)
+
     // Populate tag list:
     tagList = getTagList();
     var tagDiv = d3.select(".tagfilter");
@@ -212,6 +241,13 @@ function buildHeatMap() {
       .transition()
       .duration(200)
       .style('fill', d => colorScale(d.count));
+    var colorScaleTicks = []
+    for (var i = 0; i < 10; i++) {
+      colorScaleTicks.push(Math.round(i * maxCount / 9))
+    }
+    var scaleLabels = chartG.selectAll('.colorScale text')
+      .data(colorScaleTicks)
+      .text(d => d)
   }
 
   function updateTags() {

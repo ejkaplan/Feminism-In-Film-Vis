@@ -70,3 +70,8 @@
   font-family: Karla, sans-serif;
   pointer-events: none;
 }
+
+.colorScale {
+  font-family: Karla;
+  font-size: 14px;
+}
