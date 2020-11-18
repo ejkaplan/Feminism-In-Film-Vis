@@ -1,4 +1,4 @@
-function buildMenVsWomen() {
+function buildMenVsWomen4() {
 
   //Assign these variables based on scrollytelling
 
@@ -327,4 +327,4 @@ function buildMenVsWomen() {
   })
 }
 
-buildMenVsWomen();
+buildMenVsWomen4();
