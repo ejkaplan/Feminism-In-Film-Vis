@@ -1,6 +1,4 @@
 function buildTopRanked1() {
-  // console.log("inTopRanked");
-
 
   function dataPreprocessor(row) {
     return {
@@ -32,17 +30,18 @@ function buildTopRanked1() {
 
   var padding = {
     t: 80,
-    r: 80,
+    r: 70,
     b: 80,
-    l: 80
+    l: 70
   };
 
   //Compute chart dimensions
   var chartWidth = svgWidth - padding.l - padding.r;
   var chartHeight = svgHeight - padding.t - padding.b;
+  // console.log(chartWidth);
 
-  var imageWidth = 110;
-  var imageHeight = 165.3;
+  var imageWidth = 95;
+  var imageHeight = 142.5;
 
   var feministData, allData;
   d3.csv("../data/CombinedMoviesWave1b.csv", dataPreprocessor).then(function(moviedata) {
@@ -53,9 +52,8 @@ function buildTopRanked1() {
     drawMovies(feministData);
   });
 
-
   function drawMovies(moviedata) {
-    console.log(moviedata);
+    // console.log(moviedata);
 
     // X SCALE
     var xAxisLabels = [];
@@ -96,13 +94,7 @@ function buildTopRanked1() {
       return d["alt_revenue"];
     });
     maxArray.push(max2);
-    // console.log(maxArray);
     var maxRev = d3.max(maxArray);
-
-    // var maxRev = d3.max(moviedata, function(d) {
-    //   return d["revenue"];
-    // });
-    // console.log(maxRev);
 
     var yScaleRevenue = d3.scaleLinear()
       .domain([0, (maxRev + (maxRev / 6))])
@@ -115,9 +107,14 @@ function buildTopRanked1() {
 
     //DRAW AXES
     svg.append('g')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(111, 446)') //446
+      .call(xAxisCustom)
+      .call(g => g.select(".domain").remove());
+
+    svg.append('g')
       .attr('class', 'yAxisPercent')
-      .attr('transform', 'translate(100,80)')
-      //.transition().duration(800)
+      .attr('transform', 'translate(85,70)')
       .call(yAxisPercent)
       .call(g => g.select(".domain").remove())
       .call(g => g.selectAll(".tick line")
@@ -130,18 +127,9 @@ function buildTopRanked1() {
         .attr("y", -8));
 
     svg.append('g')
-      .attr('class', 'x axis')
-      .attr('transform', 'translate(130, 505)') //200 xaxis = 90 y axis for y coord.
-      // .transition().duration(800)
-      .call(xAxisCustom)
-      .call(g => g.select(".domain").remove());
-
-    svg.append('g')
       .attr('class', 'yAxisRevenue')
-      .attr('transform', 'translate(100,290)')
-      //.transition().duration(100)
+      .attr('transform', 'translate(85,260)')
       .call(yAxisRevenue)
-      // .attr("stroke", "white")
       .call(g => g.select(".domain").remove())
       .call(g => g.selectAll(".tick:not(:first-of-type) line")
         .attr("stroke", "black")
@@ -156,21 +144,21 @@ function buildTopRanked1() {
     svg.append('text')
       .attr('class', 'axis-label')
       .text('Female Cast & Crew')
-      .attr('transform', 'translate (70, 235), rotate (-90)')
+      .attr('transform', 'translate (65, 205), rotate (-90)')
       .transition().duration(800)
       .attr("fill", "black");
 
     svg.append('text')
       .attr('class', 'axis-label')
       .text('Film Revenue')
-      .attr('transform', 'translate (70, 450), rotate (-90)')
+      .attr('transform', 'translate (65, 395), rotate (-90)')
       .transition().duration(800)
       .attr("fill", "black");
 
     svg.append('text')
       .attr('class', 'axis-label')
-      .text('Top 10 Ranked Films in the Wave')
-      .attr('transform', 'translate (570, 555)')
+      .text('Film Rank by User Rating')
+      .attr('transform', 'translate (500, 495)')
       .transition().duration(800)
       .attr("fill", "black")
 
@@ -187,10 +175,10 @@ function buildTopRanked1() {
       .enter()
       .append("svg:image")
       .attr("x", function(d, i) {
-        return 125 + 40 + (0.95 * i * (chartWidth / 10)); //98 padding is 6 between each bar
+        return 140 + (0.95 * i * (chartWidth / 10)); //98 padding is 6 between each bar
       })
       .attr("y", function(d) {
-        return (chartHeight - 330);
+        return (chartHeight - 280);
       })
       .attr("width", imageWidth)
       .attr("height", imageHeight) //need to cite height to cut off images taller
@@ -222,10 +210,10 @@ function buildTopRanked1() {
     barGroup.append("rect")
       .attr("class", "posterBar")
       .attr("x", function(d, i) {
-        return 125 + 40 + (0.95 * i * (chartWidth / 10)); //98 padding is 6 between each bar
+        return 140 + (0.95 * i * (chartWidth / 10)); //98 padding is 6 between each bar
       })
       .attr("y", function(d) {
-        return (chartHeight - 330);
+        return (chartHeight - 280);
       })
       .attr("width", imageWidth)
       .attr("height", imageHeight)
@@ -249,10 +237,10 @@ function buildTopRanked1() {
     barGroup.append("rect")
       .attr("class", "percentageBar")
       .attr("x", function(d, i) {
-        return 125 + 40 + (0.95 * i * (chartWidth / 10));
+        return 140 + (0.95 * i * (chartWidth / 10));
       })
       .attr("y", function(d) {
-        return (chartHeight - 169 - Number(d['percent_fem']));
+        return (chartHeight - 142 - Number(d['percent_fem']));
       })
       .attr("width", imageWidth)
       .attr("height", function(d) {
@@ -262,6 +250,7 @@ function buildTopRanked1() {
         return "#A93F55";
       })
       .attr("stroke", "#A93F55")
+      .attr("stroke-width", 1)
       .attr('fill-opacity', 0.8)
       .on("mouseover", function(d) {
         d3.select(this)
@@ -272,7 +261,7 @@ function buildTopRanked1() {
       })
       .on("mouseout", function(d) {
         d3.select(this)
-          .attr("stroke-width", 0)
+          .attr("stroke-width", 1)
           .transition()
           .duration(100)
           .attr("fill-opacity", 0.8);
@@ -286,10 +275,10 @@ function buildTopRanked1() {
         return (Number(d['percent_fem'])) + "%";
       })
       .attr("x", function(d, i) {
-        return 125 + 40 + (imageWidth / 2) + (0.95 * i * (chartWidth / 10));
+        return 140 + (imageWidth / 2) + (0.95 * i * (chartWidth / 10));
       })
       .attr("y", function(d) {
-        return (chartHeight - 158 - Number(d['percent_fem']));
+        return (chartHeight - 132 - Number(d['percent_fem']));
       })
       .attr("text-anchor", "middle")
       .attr("font-family", "sans-serif")
@@ -303,18 +292,33 @@ function buildTopRanked1() {
       .style("opacity", 0);
 
     // Code for circles //
+    var other_circles = svg.selectAll(".other_circle")
+      .data(moviedata)
+      .enter()
+      .append("circle")
+      .attr('class', 'othercircle')
+      .attr("cx", function(d, i) {
+        return 140 + (imageWidth / 2) + (0.95 * i * (chartWidth / 10)); //98 padding is 6 between each bar
+      })
+      .attr("cy", function(d) {
+        return (yScaleRevenue(d["alt_revenue"])) + 260;
+      })
+      .attr("r", 6)
+      .attr("opacity", 0.0)
+      .attr("fill", "#FF8509");    
+
     var circles = svg.selectAll(".maincircle")
       .data(moviedata)
       .enter()
       .append("circle")
       .attr('class', 'maincircle')
       .attr("cx", function(d, i) {
-        return 124 + 40 + (imageWidth / 2) + (0.95 * i * (chartWidth / 10)); //98 padding is 6 between each bar
+        return 140 + (imageWidth / 2) + (0.95 * i * (chartWidth / 10)); //98 padding is 6 between each bar
       })
       .attr("cy", function(d) {
-        return (yScaleRevenue(d["revenue"])) + 285;
+        return (yScaleRevenue(d["revenue"])) + 260;
       })
-      .attr("r", 7)
+      .attr("r", 6)
       .attr("fill", "#A93F55")
       .attr("stroke", "#A93F55")
       .on("mouseover", function(d) {
@@ -332,17 +336,6 @@ function buildTopRanked1() {
           .html(formattedNum(d))
           .style("left", (d3.event.pageX + 10) + "px")
           .style("top", (d3.event.pageY - 28) + "px");
-        // toolTipOtherCircle
-        //   .transition()
-        //   .duration(100)
-        //   .style("opacity", 1.0);
-        // let altformattedNum = function (d) {
-        //   return d["alt_title"] + "<br>" + "$" + d3.format(",.2f")(d["alt_revenue"]);
-        // }
-        // toolTipOtherCircle
-        //   .html(altformattedNum(d))
-        //   .style("left", (d3.event.pageX + 10) + "px")
-        //   .style("top", (d3.event.pageY+ 30) + "px");
       })
       .on("mouseout", function(d) {
         d3.select(this)
@@ -357,21 +350,6 @@ function buildTopRanked1() {
           .duration(100)
           .style("opacity", 0);
       });
-
-    var other_circles = svg.selectAll(".other_circle")
-      .data(moviedata)
-      .enter()
-      .append("circle")
-      .attr('class', 'othercircle')
-      .attr("cx", function(d, i) {
-        return 124 + 40 + (imageWidth / 2) + (0.95 * i * (chartWidth / 10)); //98 padding is 6 between each bar
-      })
-      .attr("cy", function(d) {
-        return (yScaleRevenue(d["alt_revenue"])) + 285;
-      })
-      .attr("r", 7)
-      .attr("opacity", 0.0)
-      .attr("fill", "#FF8509");
 
   }
 
@@ -437,8 +415,8 @@ function buildTopRanked1() {
       .transition()
       .duration(300)
       .attr("y", function(d) {
-        return (chartHeight - 169 - Number(d['percent_fem']));
-      })
+        return (chartHeight - 142 - Number(d['percent_fem']));
+      })      
       .attr("height", function(d) {
         return (5 + Number(d['percent_fem']));
       })
@@ -461,10 +439,25 @@ function buildTopRanked1() {
       .transition()
       .duration(300)
       .attr("y", function(d) {
-        return (chartHeight - 158 - Number(d['percent_fem']));
-      })
+        return (chartHeight - 132 - Number(d['percent_fem']));
+      })      
       .text(function(d) {
         return (Number(d['percent_fem'])) + "%";
+      })
+
+    svg.selectAll('.othercircle')
+      .data(moviedata)
+      .transition()
+      .duration(300)
+      .attr("cy", function(d) {
+        return yScaleRevenue(d["alt_revenue"]) + 260;
+      })
+      .attr("fill", function(d) {
+        if (selection == "all") {
+          return "#A93F55";
+        } else {
+          return "#FF8509";
+        }
       })
 
     svg.selectAll('.maincircle')
@@ -472,7 +465,7 @@ function buildTopRanked1() {
       .transition()
       .duration(300)
       .attr("cy", function(d) {
-        return yScaleRevenue(d["revenue"]) + 285;
+        return yScaleRevenue(d["revenue"]) + 260;
       })
       .attr("fill", function(d) {
         if (selection == "all") {
@@ -490,22 +483,10 @@ function buildTopRanked1() {
         }
       });
 
-    svg.selectAll('.othercircle')
-      .data(moviedata)
-      .transition()
-      .duration(300)
-      .attr("cy", function(d) {
-        return yScaleRevenue(d["alt_revenue"]) + 285;
-      })
-      .attr("fill", function(d) {
-        if (selection == "all") {
-          return "#A93F55";
-        } else {
-          return "#FF8509";
-        }
-      })
+
   }
-  buildTopRanked1.updateData = updateData;
+
+buildTopRanked1.updateData = updateData;
 
 }
 
