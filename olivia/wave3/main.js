@@ -41,7 +41,7 @@ var extent = d3.extent(dataset, function(d) {
 var xScale = d3.scaleBand()
     .domain([1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010])
     // .domain([1920, 1959])
-    .rangeRound([20,1220])
+    .rangeRound([20,1050])
     .padding(0.5);
      
 
@@ -150,7 +150,7 @@ svg.selectAll('rect')
     svg.append('text')
             .attr('class', 'x label')
               .attr("font-family", "Karla")
-            .attr('transform', 'translate(650,500)')
+            .attr('transform', 'translate(560,500)')
             .attr('fill', 'black')
             .attr('font-weight', 'bold')
             .text('Year');
@@ -198,14 +198,14 @@ var yAxis = d3.axisRight(averageScale).ticks(5);
  svg.append('g')
     .attr('class', 'average axis')
     .attr('stroke-width', 2)
-    .attr('transform', 'translate(1290,60)')
+    .attr('transform', 'translate(1120,60)')
     .attr('color', '#FF8509')
     .call(yAxis);
 
 
 svg.append('text')
             .attr('class', 'average axis')
-            .attr('transform', 'translate(1320,110)rotate(-270)')
+            .attr('transform', 'translate(1155,110)rotate(-270)')
               .attr("font-family", "Karla")
               .attr('font-weight', 'bold')
               .attr('fill', 'black')
