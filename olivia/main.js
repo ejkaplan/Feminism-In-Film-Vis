@@ -154,7 +154,7 @@ svg.selectAll('rect')
     svg.append('text')
             .attr('class', 'x label')
               .attr("font-family", "Karla")
-            .attr('transform', 'translate(650,500)')
+            .attr('transform', 'translate(560,500)')
             .attr('fill', '#171717')
             .attr('font-weight', 'bold')
             .text('Year');
@@ -203,7 +203,7 @@ var yAxis = d3.axisRight(averageScale).ticks(5);
  svg.append('g')
     .attr('class', 'average axis')
  .attr('stroke-width', 2)
-    .attr('transform', 'translate(1290,60)')
+    .attr('transform', 'translate(1120,60)')
    // .attr('font-weight', 'bold')
     .attr('color', '#FF8509')
     .call(yAxis);
@@ -211,7 +211,7 @@ var yAxis = d3.axisRight(averageScale).ticks(5);
 
 svg.append('text')
             .attr('class', 'average axis')
-            .attr('transform', 'translate(1320,110)rotate(-270)')
+            .attr('transform', 'translate(1155,110)rotate(-270)')
               .attr("font-family", "Karla")
               .attr('font-weight', 'bold')
               .attr('fill', 'black')
