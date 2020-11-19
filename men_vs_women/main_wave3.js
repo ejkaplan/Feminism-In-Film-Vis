@@ -200,8 +200,8 @@ function buildMenVsWomen3() {
     maleGraph.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(15,' + (topPadding) + ')')
-      .call(maleAxis)
-      .attr('font-family', 'Karla');
+      .call(maleAxis);
+      // .attr('font-family', 'Karla');
 
    var female20points = [
       [femaleGraphX + wScale(20), topPadding],
@@ -280,8 +280,8 @@ function buildMenVsWomen3() {
     femaleGraph.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(420,' + (topPadding) + ')')
-      .call(femaleAxis)
-      .attr('font-family', 'Karla');
+      .call(femaleAxis);
+      // .attr('font-family', 'Karla');
 
 //Vertical Year Labels
     var labels = yearsLabels.selectAll('text')

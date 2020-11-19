@@ -50,8 +50,8 @@ function buildMenVsWomen1() {
     .attr('id', 'labels')
     .attr('x', 385)
     .attr('y', topPadding)
-    .style('fill', '#E5F77D')
-    .attr('font-family', 'Karla');
+    .style('fill', '#E5F77D');
+    // .attr('font-family', 'Karla');
 
 
 

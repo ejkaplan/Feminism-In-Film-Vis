@@ -144,21 +144,21 @@ function buildTopRanked1() {
     svg.append('text')
       .attr('class', 'axis-label')
       .text('Female Cast & Crew')
-      .attr('transform', 'translate (65, 205), rotate (-90)')
+      .attr('transform', 'translate (65, 212), rotate (-90)')
       .transition().duration(800)
       .attr("fill", "black");
 
     svg.append('text')
       .attr('class', 'axis-label')
       .text('Film Revenue')
-      .attr('transform', 'translate (65, 395), rotate (-90)')
+      .attr('transform', 'translate (65, 400), rotate (-90)')
       .transition().duration(800)
       .attr("fill", "black");
 
     svg.append('text')
       .attr('class', 'axis-label')
-      .text('Film Rank by User Rating')
-      .attr('transform', 'translate (500, 495)')
+      .text('Film Ranking in this Wave')
+      .attr('transform', 'translate (485, 495)')
       .transition().duration(800)
       .attr("fill", "black")
 
@@ -167,7 +167,6 @@ function buildTopRanked1() {
     for (let i = 0; i < 10; i++) {
       imgLinks.push(moviedata[i]["poster_path"]);
     };
-    // .log(imgLinks);
 
     // DRAWS POSTERS
     var imgs = svg.selectAll("image")
@@ -385,19 +384,6 @@ function buildTopRanked1() {
       .ticks(5)
       .tickFormat(d3.formatPrefix("$0.1", 1e6));
 
-    // svg.selectAll('.yAxisRevenue')
-    //   .transition()
-    //   .duration(300)
-    //   .call(yAxisRevenue)
-    //   .call(g => g.selectAll(".tick:not(:first-of-type) line")
-    //     .attr("stroke", "black")
-    //     .attr("stroke-opacity", 0.5)
-    //     .attr("stroke-dasharray", "3,3"))
-    //   .call(g => g.selectAll(".tick text")
-    //     .style("text-anchor", "start")
-    //     .attr("x", 1)
-    //     .attr("y", -8));
-
     var imgLinks = [];
     for (let i = 0; i < 10; i++) {
       imgLinks.push(moviedata[i]["poster_path"]);
@@ -482,7 +468,6 @@ function buildTopRanked1() {
           return "#A93F55";
         }
       });
-
 
   }
 
